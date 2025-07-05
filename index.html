@@ -33,7 +33,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            touch-action: manipulation; /* Improve touch responsiveness */
+            touch-action: manipulation;
         }
 
         /* Allow text selection for content */
@@ -87,7 +87,7 @@
             font-size: 16px;
             position: relative;
             transition: color 0.3s;
-            padding: 10px; /* Larger tap target */
+            padding: 10px;
         }
 
         .nav-links a::after {
@@ -229,6 +229,9 @@
             position: relative;
             opacity: 1;
             transform: translateY(0);
+            display: flex;
+            flex-direction: column;
+            height: 400px; /* Fixed height for uniformity */
         }
 
         .product-card img {
@@ -236,7 +239,7 @@
             height: 250px;
             object-fit: cover;
             transition: transform 0.4s;
-            loading: lazy; /* Optimize image loading */
+            loading: lazy;
         }
 
         .product-card:hover {
@@ -253,6 +256,7 @@
             font-size: 24px;
             margin: 20px 0 10px;
             color: #1a3c34;
+            flex: 0 0 auto;
         }
 
         .product-card p {
@@ -260,6 +264,12 @@
             color: #666;
             padding: 0 20px 25px;
             line-height: 1.5;
+            flex: 1 0 auto;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .product-overlay {
@@ -274,7 +284,7 @@
             align-items: center;
             justify-content: center;
             transition: opacity 0.4s;
-            pointer-events: none; /* Prevent accidental hover on touch */
+            pointer-events: none;
         }
 
         .product-card:hover .product-overlay {
@@ -347,7 +357,7 @@
             color: #a5d6a7;
             text-decoration: none;
             transition: color 0.3s;
-            padding: 5px; /* Larger tap target */
+            padding: 5px;
         }
 
         footer a:hover {
@@ -358,20 +368,39 @@
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
+            justify-content: center;
             cursor: pointer;
             padding: 10px;
+            width: 40px;
+            height: 40px;
+            position: relative;
         }
 
         .mobile-menu-toggle span {
             width: 30px;
             height: 4px;
             background: #1a3c34;
-            margin: 4px 0;
-            transition: 0.3s;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 5px;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 8px;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 18px;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 28px;
         }
 
         .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-6px, 7px);
+            transform: rotate(45deg);
+            top: 18px;
         }
 
         .mobile-menu-toggle.active span:nth-child(2) {
@@ -379,7 +408,8 @@
         }
 
         .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-6px, -7px);
+            transform: rotate(-45deg);
+            top: 18px;
         }
 
         .mobile-menu {
@@ -473,7 +503,7 @@
             .cta-button {
                 padding: 12px 30px;
                 font-size: 16px;
-                min-height: 48px; /* Larger tap target */
+                min-height: 48px;
             }
 
             /* Products Section */
@@ -494,6 +524,7 @@
             .product-card {
                 margin: 0 auto;
                 max-width: 350px;
+                height: 380px; /* Uniform height for mobile */
             }
 
             .product-card img {
@@ -571,6 +602,7 @@
 
             .product-card {
                 max-width: 100%;
+                height: 360px;
             }
 
             .product-card h3 {
@@ -631,6 +663,10 @@
 
             .products h2, .about h2 {
                 font-size: 26px;
+            }
+
+            .product-card {
+                height: 340px;
             }
 
             .cta-button {
@@ -941,12 +977,11 @@
             ease: 'power3.out'
         });
 
-        // Logo Hover/Tap Animation
+        // Logo Hover/Tap Animation (Scale Only)
         const logoImg = document.querySelector('.logo img');
         logoImg.addEventListener('mouseenter', () => {
             gsap.to(logoImg, {
-                scale: 1.2,
-                rotate: 10,
+                scale: 1.3,
                 duration: 0.3,
                 ease: 'power2.out'
             });
@@ -955,7 +990,6 @@
         logoImg.addEventListener('mouseleave', () => {
             gsap.to(logoImg, {
                 scale: 1,
-                rotate: 0,
                 duration: 0.3,
                 ease: 'power2.out'
             });
@@ -965,8 +999,7 @@
         logoImg.addEventListener('touchstart', (e) => {
             e.preventDefault();
             gsap.to(logoImg, {
-                scale: 1.2,
-                rotate: 10,
+                scale: 1.3,
                 duration: 0.3,
                 ease: 'power2.out'
             });
@@ -975,7 +1008,6 @@
         logoImg.addEventListener('touchend', () => {
             gsap.to(logoImg, {
                 scale: 1,
-                rotate: 0,
                 duration: 0.3,
                 ease: 'power2.out'
             });
