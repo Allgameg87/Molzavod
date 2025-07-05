@@ -44,11 +44,17 @@
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a3c34;
-            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px; /* Ограничение высоты логотипа */
+            transition: transform 0.3s;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1); /* Легкий ховер-эффект */
         }
 
         .nav-links a {
@@ -327,6 +333,10 @@
             .product-card img {
                 height: 200px;
             }
+
+            .logo img {
+                height: 55px; /* Меньший размер логотипа на мобильных */
+            }
         }
     </style>
 </head>
@@ -334,7 +344,11 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">Чистые Луга</div>
+            <div class="logo">
+                <a href="https://allgameg87.github.io/Molzavod/">
+                    <img src="images/logo.png" alt="Чистые Луга">
+                </a>
+            </div>
             <div class="nav-links">
                 <a href="#home">Главная</a>
                 <a href="#products">Продукты</a>
@@ -402,43 +416,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
-        // Scroll to top on page load/reload
-        window.addEventListener('load', function() {
-            window.scrollTo(0, 0);
-        });
-
-        // Prevent scroll restoration on page refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
-        // Additional backup to ensure scroll to top
-        window.addEventListener('beforeunload', function() {
-            window.scrollTo(0, 0);
-        });
-
-        // Smooth Scroll for navigation links
+        // Smooth Scroll
         document.querySelectorAll('.nav-links a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 targetElement.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Smooth Scroll for CTA button "Наши продукты"
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
             });
         });
 
@@ -538,6 +522,14 @@
             stagger: 0.2,
             duration: 1,
             ease: 'power2.out'
+        });
+
+        // Logo Animation
+        gsap.from('.logo img', {
+            opacity: 0,
+            x: -50,
+            duration: 1,
+            ease: 'power3.out'
         });
     </script>
 </body>
