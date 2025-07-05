@@ -13,9 +13,34 @@
             font-family: 'Roboto', sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
         body {
             overflow-x: hidden;
             background: #f8f9fa;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Touch improvements */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Allow text selection for content */
+        p, h1, h2, h3, h4, h5, h6 {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         /* Header */
@@ -26,7 +51,7 @@
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 15px 0;
+            padding: 20px 0;
             transition: transform 0.3s;
         }
 
@@ -40,7 +65,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px;
+            padding: 0 20px;
         }
 
         .logo {
@@ -49,20 +74,16 @@
         }
 
         .logo img {
-            height: 60px;
+            height: 70px; /* Ограничение высоты логотипа */
             transition: transform 0.3s;
         }
 
         .logo img:hover {
-            transform: scale(1.1);
-        }
-
-        .nav-links {
-            display: flex;
+            transform: scale(1.1); /* Легкий ховер-эффект */
         }
 
         .nav-links a {
-            margin-left: 20px;
+            margin-left: 25px;
             text-decoration: none;
             color: #1a3c34;
             font-weight: 400;
@@ -90,36 +111,9 @@
             color: #2e7d32;
         }
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: #1a3c34;
-            margin: 2px 0;
-            transition: all 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
         /* Hero Section */
         .hero {
-            height: 70vh;
+            height: 100vh;
             background: url('images/hero-bg.jpg') no-repeat center/cover;
             display: flex;
             align-items: center;
@@ -145,41 +139,53 @@
             position: relative;
             z-index: 2;
             max-width: 900px;
-            padding: 15px;
+            padding: 20px;
         }
 
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 64px;
+            margin-bottom: 20px;
             line-height: 1.2;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .hero-content p {
-            font-size: 18px;
-            margin-bottom: 30px;
+            font-size: 20px;
+            margin-bottom: 40px;
             font-weight: 300;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 40px;
             background: #2e7d32;
             color: #fff;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            touch-action: manipulation;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .cta-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             background: #1b5e20;
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* Parallax Background */
@@ -196,7 +202,7 @@
 
         /* Products Section */
         .products {
-            padding: 60px 15px;
+            padding: 100px 20px;
             max-width: 1400px;
             margin: 0 auto;
             text-align: center;
@@ -205,36 +211,38 @@
 
         .products h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            margin-bottom: 40px;
+            font-size: 48px;
+            margin-bottom: 60px;
             color: #1a3c34;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .product-card {
             background: #fff;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.4s, box-shadow 0.4s;
             position: relative;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
             transition: transform 0.4s;
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .product-card:hover img {
@@ -243,15 +251,15 @@
 
         .product-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            margin: 15px 0 10px;
+            font-size: 24px;
+            margin: 20px 0 10px;
             color: #1a3c34;
         }
 
         .product-card p {
-            font-size: 15px;
+            font-size: 16px;
             color: #666;
-            padding: 0 15px 20px;
+            padding: 0 20px 25px;
             line-height: 1.5;
         }
 
@@ -277,7 +285,7 @@
             color: #fff;
             text-decoration: none;
             font-weight: 700;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border: 2px solid #fff;
             border-radius: 5px;
             transition: background 0.3s;
@@ -290,7 +298,7 @@
 
         /* About Section */
         .about {
-            padding: 60px 15px;
+            padding: 100px 20px;
             background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
             text-align: center;
             position: relative;
@@ -298,34 +306,39 @@
 
         .about h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin-bottom: 30px;
             color: #1a3c34;
         }
 
         .about p {
             max-width: 900px;
             margin: 0 auto;
-            font-size: 16px;
+            font-size: 18px;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .about-image {
-            display: none;
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 200px;
+            opacity: 0.2;
+            z-index: 0;
         }
 
         /* Footer */
         footer {
-            padding: 40px 15px;
+            padding: 60px 20px;
             background: #1a3c34;
             color: #fff;
             text-align: center;
         }
 
         footer p {
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
 
         footer a {
@@ -338,96 +351,270 @@
             color: #fff;
         }
 
-        /* Mobile Responsive */
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #1a3c34;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            padding: 15px 0;
+            text-decoration: none;
+            color: #1a3c34;
+            font-weight: 400;
+            font-size: 18px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: #2e7d32;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            /* Navigation */
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 70%;
-                background: #fff;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.3s ease-in-out;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                display: none;
             }
 
-            .nav-links.active {
-                right: 0;
-            }
-
-            .nav-links a {
-                margin: 15px 0;
-                font-size: 18px;
-            }
-
-            .hamburger {
+            .mobile-menu-toggle {
                 display: flex;
             }
 
+            /* Hero Section */
             .hero {
-                height: 60vh;
+                height: 80vh;
+                padding: 0 10px;
+            }
+
+            .hero-content {
+                padding: 10px;
             }
 
             .hero-content h1 {
-                font-size: 32px;
+                font-size: 36px;
+                margin-bottom: 15px;
             }
 
             .hero-content p {
-                font-size: 14px;
+                font-size: 16px;
+                margin-bottom: 30px;
             }
 
             .cta-button {
-                padding: 10px 25px;
-                font-size: 14px;
+                padding: 12px 30px;
+                font-size: 16px;
             }
 
+            /* Products Section */
             .products {
-                padding: 40px 10px;
+                padding: 60px 15px;
             }
 
             .products h2 {
-                font-size: 28px;
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .product-card {
+                margin: 0 auto;
+                max-width: 350px;
             }
 
             .product-card img {
-                height: 180px;
+                height: 200px;
             }
 
+            .product-card h3 {
+                font-size: 20px;
+            }
+
+            .product-card p {
+                font-size: 14px;
+                padding: 0 15px 20px;
+            }
+
+            /* About Section */
             .about {
-                padding: 40px 10px;
+                padding: 60px 15px;
             }
 
             .about h2 {
-                font-size: 28px;
+                font-size: 32px;
+                margin-bottom: 25px;
             }
 
+            .about p {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            .about-image {
+                display: none;
+            }
+
+            /* Footer */
+            footer {
+                padding: 40px 15px;
+            }
+
+            footer p {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            /* Logo */
             .logo img {
                 height: 50px;
+            }
+
+            /* Header */
+            header {
+                padding: 15px 0;
+            }
+
+            nav {
+                padding: 0 15px;
             }
         }
 
         @media (max-width: 480px) {
             .hero-content h1 {
+                font-size: 28px;
+                line-height: 1.1;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+
+            .products h2, .about h2 {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+
+            .product-card h3 {
+                font-size: 18px;
+                margin: 15px 0 8px;
+            }
+
+            .product-card p {
+                font-size: 13px;
+                padding: 0 15px 15px;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .mobile-menu {
+                top: 70px;
+                padding: 15px;
+            }
+
+            .mobile-menu a {
+                padding: 12px 0;
+                font-size: 16px;
+            }
+
+            .about p {
+                font-size: 15px;
+            }
+
+            .products {
+                padding: 50px 10px;
+            }
+
+            .about {
+                padding: 50px 10px;
+            }
+
+            footer {
+                padding: 30px 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-content h1 {
                 font-size: 24px;
             }
 
             .hero-content p {
-                font-size: 12px;
+                font-size: 13px;
             }
 
             .products h2, .about h2 {
                 font-size: 24px;
             }
 
-            .product-card h3 {
-                font-size: 18px;
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 13px;
             }
 
-            .product-card p {
-                font-size: 14px;
+            .logo img {
+                height: 35px;
             }
         }
     </style>
@@ -441,18 +628,24 @@
                     <img src="images/logo.png" alt="Чистые Луга">
                 </a>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
             <div class="nav-links">
                 <a href="#home">Главная</a>
                 <a href="#products">Продукты</a>
                 <a href="#about">О нас</a>
                 <a href="#contact">Контакты</a>
             </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+        <div class="mobile-menu">
+            <a href="#home">Главная</a>
+            <a href="#products">Продукты</a>
+            <a href="#about">О нас</a>
+            <a href="#contact">Контакты</a>
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -498,6 +691,7 @@
 
     <!-- About Section -->
     <section class="about" id="about">
+        <img class="about-image" src="images/farm-bg.jpg" alt="Ферма">
         <h2>О нас</h2>
         <p>Молочный завод "Чистые Луга" – это семейное предприятие, основанное в 1995 году. Мы производим натуральные молочные продукты, заботясь о каждом этапе: от экологически чистых пастбищ до современной упаковки. Наша миссия – дарить здоровье и радость через вкусные и полезные продукты.</p>
     </section>
@@ -512,31 +706,122 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
-        // Hamburger Menu
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
+        // Scroll to top on page load/refresh
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
         });
 
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        // Ensure page starts at top
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }, 100);
+        });
+
+        // Alternative method for scroll to top
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // Additional scroll to top on page refresh
+        window.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // Force scroll to top immediately
+        if (window.pageYOffset > 0) {
+            window.scrollTo(0, 0);
+        }
+
+        // Prevent any unwanted animations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                card.style.transition = 'transform 0.4s, box-shadow 0.4s';
+            });
+        });
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
             });
         });
 
-        // Smooth Scroll
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Enhanced Smooth Scroll function
+        function smoothScrollTo(targetElement) {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = targetElement.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth Scroll for desktop navigation
         document.querySelectorAll('.nav-links a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                targetElement.scrollIntoView({ behavior: 'smooth' });
+                if (targetElement) {
+                    smoothScrollTo(targetElement);
+                }
             });
+        });
+
+        // Smooth Scroll for mobile navigation
+        document.querySelectorAll('.mobile-menu a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    smoothScrollTo(targetElement);
+                }
+            });
+        });
+
+        // Smooth Scroll for CTA button "Наши продукты"
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                smoothScrollTo(targetElement);
+            }
         });
 
         // Header Scroll Effect
@@ -549,83 +834,100 @@
             }
         });
 
-        // Simplified GSAP Animations for Mobile
-        if (window.innerWidth > 768) {
-            // Hero Section
-            gsap.from('.hero-content h1', {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: 'power2.out'
-            });
+        // GSAP Animations
+        // Hero Section
+        gsap.from('.hero-content h1', {
+            opacity: 0,
+            y: 100,
+            duration: 1.5,
+            ease: 'power4.out'
+        });
 
-            gsap.from('.hero-content p', {
-                opacity: 0,
-                y: 30,
-                duration: 1,
-                delay: 0.2,
-                ease: 'power2.out'
-            });
+        gsap.from('.hero-content p', {
+            opacity: 0,
+            y: 50,
+            duration: 1.5,
+            delay: 0.3,
+            ease: 'power4.out'
+        });
 
-            gsap.from('.cta-button', {
-                opacity: 0,
-                scale: 0.9,
-                duration: 0.8,
-                delay: 0.4,
-                ease: 'back.out(1.7)'
-            });
+        gsap.from('.cta-button', {
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            delay: 0.6,
+            ease: 'back.out(1.7)'
+        });
 
-            // Parallax Effect
-            gsap.to('.parallax-bg', {
-                scrollTrigger: {
-                    trigger: '.hero',
-                    scrub: true,
-                    start: 'top top',
-                    end: 'bottom top'
-                },
-                yPercent: 15,
-                ease: 'none'
-            });
+        // Parallax Effect
+        gsap.to('.parallax-bg', {
+            scrollTrigger: {
+                trigger: '.hero',
+                scrub: true,
+                start: 'top top',
+                end: 'bottom top'
+            },
+            yPercent: 20,
+            ease: 'none'
+        });
 
-            // Products Section
-            gsap.from('.product-card', {
-                scrollTrigger: {
-                    trigger: '.products',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                y: 50,
-                stagger: 0.2,
-                duration: 0.8,
-                ease: 'power2.out'
-            });
-        } else {
-            // Minimal animations for mobile
-            gsap.from('.hero-content', {
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power2.out'
-            });
+        // Products Section - Animation disabled to prevent unwanted effects
+        // gsap.from('.product-card', {
+        //     scrollTrigger: {
+        //         trigger: '.products',
+        //         start: 'top 80%',
+        //         toggleActions: 'play none none none'
+        //     },
+        //     opacity: 0,
+        //     y: 100,
+        //     stagger: 0.3,
+        //     duration: 1.2,
+        //     ease: 'power3.out'
+        // });
 
-            gsap.from('.product-card', {
-                scrollTrigger: {
-                    trigger: '.products',
-                    start: 'top 90%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                duration: 0.5,
-                stagger: 0.1
-            });
-        }
+        // About Section
+        gsap.from('.about h2', {
+            scrollTrigger: {
+                trigger: '.about',
+                start: 'top 80%'
+            },
+            opacity: 0,
+            x: -100,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.about p', {
+            scrollTrigger: {
+                trigger: '.about',
+                start: 'top 80%'
+            },
+            opacity: 0,
+            x: 100,
+            duration: 1,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        // Footer Animation
+        gsap.from('footer p', {
+            scrollTrigger: {
+                trigger: 'footer',
+                start: 'top 90%'
+            },
+            opacity: 0,
+            y: 50,
+            stagger: 0.2,
+            duration: 1,
+            ease: 'power2.out'
+        });
 
         // Logo Animation
         gsap.from('.logo img', {
             opacity: 0,
-            x: -30,
-            duration: 0.8,
-            ease: 'power2.out'
+            x: -50,
+            duration: 1,
+            ease: 'power3.out'
         });
     </script>
 </body>
