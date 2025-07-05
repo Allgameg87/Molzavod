@@ -33,6 +33,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            touch-action: manipulation; /* Improve touch responsiveness */
         }
 
         /* Allow text selection for content */
@@ -74,12 +75,8 @@
         }
 
         .logo img {
-            height: 70px; /* Ограничение высоты логотипа */
+            height: 70px;
             transition: transform 0.3s;
-        }
-
-        .logo img:hover {
-            transform: scale(1.1); /* Легкий ховер-эффект */
         }
 
         .nav-links a {
@@ -90,6 +87,7 @@
             font-size: 16px;
             position: relative;
             transition: color 0.3s;
+            padding: 10px; /* Larger tap target */
         }
 
         .nav-links a::after {
@@ -238,6 +236,7 @@
             height: 250px;
             object-fit: cover;
             transition: transform 0.4s;
+            loading: lazy; /* Optimize image loading */
         }
 
         .product-card:hover {
@@ -275,10 +274,12 @@
             align-items: center;
             justify-content: center;
             transition: opacity 0.4s;
+            pointer-events: none; /* Prevent accidental hover on touch */
         }
 
         .product-card:hover .product-overlay {
             opacity: 1;
+            pointer-events: auto;
         }
 
         .product-overlay a {
@@ -326,6 +327,7 @@
             width: 200px;
             opacity: 0.2;
             z-index: 0;
+            loading: lazy;
         }
 
         /* Footer */
@@ -345,6 +347,7 @@
             color: #a5d6a7;
             text-decoration: none;
             transition: color 0.3s;
+            padding: 5px; /* Larger tap target */
         }
 
         footer a:hover {
@@ -356,19 +359,19 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            padding: 10px;
         }
 
         .mobile-menu-toggle span {
-            width: 25px;
-            height: 3px;
+            width: 30px;
+            height: 4px;
             background: #1a3c34;
-            margin: 3px 0;
+            margin: 4px 0;
             transition: 0.3s;
         }
 
         .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
+            transform: rotate(-45deg) translate(-6px, 7px);
         }
 
         .mobile-menu-toggle.active span:nth-child(2) {
@@ -376,7 +379,7 @@
         }
 
         .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
+            transform: rotate(45deg) translate(-6px, -7px);
         }
 
         .mobile-menu {
@@ -391,10 +394,13 @@
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             z-index: 999;
+            transition: transform 0.3s ease-out;
+            transform: translateY(-100%);
         }
 
         .mobile-menu.active {
             display: flex;
+            transform: translateY(0);
         }
 
         .mobile-menu a {
@@ -404,15 +410,33 @@
             font-weight: 400;
             font-size: 18px;
             border-bottom: 1px solid #e0e0e0;
-            transition: color 0.3s;
+            transition: color 0.3s, background 0.2s;
         }
 
-        .mobile-menu a:hover {
+        .mobile-menu a:hover, .mobile-menu a:active {
             color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
         }
 
         .mobile-menu a:last-child {
             border-bottom: none;
+        }
+
+        /* Disable hover effects on touch devices */
+        @media (hover: none) {
+            .nav-links a:hover::after,
+            .product-card:hover,
+            .product-card:hover img,
+            .product-overlay,
+            .product-overlay a:hover,
+            .cta-button:hover,
+            .logo img:hover {
+                transform: none;
+                box-shadow: none;
+                background: none;
+                opacity: 1;
+                width: 0;
+            }
         }
 
         /* Responsive */
@@ -433,11 +457,11 @@
             }
 
             .hero-content {
-                padding: 10px;
+                padding: 15px;
             }
 
             .hero-content h1 {
-                font-size: 36px;
+                font-size: 40px;
                 margin-bottom: 15px;
             }
 
@@ -449,6 +473,7 @@
             .cta-button {
                 padding: 12px 30px;
                 font-size: 16px;
+                min-height: 48px; /* Larger tap target */
             }
 
             /* Products Section */
@@ -457,7 +482,7 @@
             }
 
             .products h2 {
-                font-size: 32px;
+                font-size: 36px;
                 margin-bottom: 40px;
             }
 
@@ -490,7 +515,7 @@
             }
 
             .about h2 {
-                font-size: 32px;
+                font-size: 36px;
                 margin-bottom: 25px;
             }
 
@@ -530,7 +555,7 @@
 
         @media (max-width: 480px) {
             .hero-content h1 {
-                font-size: 28px;
+                font-size: 32px;
                 line-height: 1.1;
             }
 
@@ -540,7 +565,7 @@
             }
 
             .products h2, .about h2 {
-                font-size: 28px;
+                font-size: 30px;
                 margin-bottom: 30px;
             }
 
@@ -561,7 +586,7 @@
             .cta-button {
                 padding: 12px 25px;
                 font-size: 14px;
-                min-height: 44px;
+                min-height: 48px;
             }
 
             .logo img {
@@ -597,7 +622,7 @@
 
         @media (max-width: 360px) {
             .hero-content h1 {
-                font-size: 24px;
+                font-size: 28px;
             }
 
             .hero-content p {
@@ -605,12 +630,13 @@
             }
 
             .products h2, .about h2 {
-                font-size: 24px;
+                font-size: 26px;
             }
 
             .cta-button {
                 padding: 10px 20px;
                 font-size: 13px;
+                min-height: 44px;
             }
 
             .logo img {
@@ -625,7 +651,7 @@
         <nav>
             <div class="logo">
                 <a href="https://allgameg87.github.io/Molzavod/">
-                    <img src="images/logo.png" alt="Чистые Луга">
+                    <img src="images/logo.png" alt="Чистые Луга" loading="lazy">
                 </a>
             </div>
             <div class="nav-links">
@@ -663,7 +689,7 @@
         <h2>Наша продукция</h2>
         <div class="product-grid">
             <div class="product-card">
-                <img src="images/milk.jpg" alt="Молоко">
+                <img src="images/milk.jpg" alt="Молоко" loading="lazy">
                 <div class="product-overlay">
                     <a href="#products">Подробнее</a>
                 </div>
@@ -671,7 +697,7 @@
                 <p>Свежее молоко от наших коров, без добавок.</p>
             </div>
             <div class="product-card">
-                <img src="images/cheese.jpg" alt="Сыр">
+                <img src="images/cheese.jpg" alt="Сыр" loading="lazy">
                 <div class="product-overlay">
                     <a href="#products">Подробнее</a>
                 </div>
@@ -679,7 +705,7 @@
                 <p>Ароматные сыры, приготовленные по традиционным рецептам.</p>
             </div>
             <div class="product-card">
-                <img src="images/yogurt.jpg" alt="Йогурт">
+                <img src="images/yogurt.jpg" alt="Йогурт" loading="lazy">
                 <div class="product-overlay">
                     <a href="#products">Подробнее</a>
                 </div>
@@ -691,7 +717,7 @@
 
     <!-- About Section -->
     <section class="about" id="about">
-        <img class="about-image" src="images/farm-bg.jpg" alt="Ферма">
+        <img class="about-image" src="images/farm-bg.jpg" alt="Ферма" loading="lazy">
         <h2>О нас</h2>
         <p>Молочный завод "Чистые Луга" – это семейное предприятие, основанное в 1995 году. Мы производим натуральные молочные продукты, заботясь о каждом этапе: от экологически чистых пастбищ до современной упаковки. Наша миссия – дарить здоровье и радость через вкусные и полезные продукты.</p>
     </section>
@@ -744,8 +770,7 @@
                 card.style.transition = 'transform 0.4s, box-shadow 0.4s';
             });
         });
-    </script>
-    <script>
+
         // Mobile Menu Toggle
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const mobileMenu = document.querySelector('.mobile-menu');
@@ -871,20 +896,6 @@
             ease: 'none'
         });
 
-        // Products Section - Animation disabled to prevent unwanted effects
-        // gsap.from('.product-card', {
-        //     scrollTrigger: {
-        //         trigger: '.products',
-        //         start: 'top 80%',
-        //         toggleActions: 'play none none none'
-        //     },
-        //     opacity: 0,
-        //     y: 100,
-        //     stagger: 0.3,
-        //     duration: 1.2,
-        //     ease: 'power3.out'
-        // });
-
         // About Section
         gsap.from('.about h2', {
             scrollTrigger: {
@@ -922,12 +933,52 @@
             ease: 'power2.out'
         });
 
-        // Logo Animation
+        // Logo Animation on Load
         gsap.from('.logo img', {
             opacity: 0,
             x: -50,
             duration: 1,
             ease: 'power3.out'
+        });
+
+        // Logo Hover/Tap Animation
+        const logoImg = document.querySelector('.logo img');
+        logoImg.addEventListener('mouseenter', () => {
+            gsap.to(logoImg, {
+                scale: 1.2,
+                rotate: 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        logoImg.addEventListener('mouseleave', () => {
+            gsap.to(logoImg, {
+                scale: 1,
+                rotate: 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        // Support touch devices for logo animation
+        logoImg.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            gsap.to(logoImg, {
+                scale: 1.2,
+                rotate: 10,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+
+        logoImg.addEventListener('touchend', () => {
+            gsap.to(logoImg, {
+                scale: 1,
+                rotate: 0,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
         });
     </script>
 </body>
