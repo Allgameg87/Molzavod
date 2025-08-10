@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Молочный завод "Красногвардеец"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: #f8f9fa;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            max-width: 100vw;
+            position: relative;
+        }
+
+        /* Touch improvements */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        /* Allow text selection for content */
+        p, h1, h2, h3, h4, h5, h6, input, textarea, label {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header.scrolled {
+            transform: translateY(-10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0 20px;
+            min-width: 0;
+        }
+
+        .company-name {
+            margin-bottom: 8px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .company-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2e7d32, transparent);
+        }
+
+        .company-name h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #1a3c34;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        @supports (-webkit-background-clip: text) {
+            .company-name h1 {
+                background: linear-gradient(135deg, #1a3c34, #2e7d32);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                color: transparent;
+            }
+        }
+
+        .company-name h1 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .company-name p {
+            font-size: 12px;
+            color: #2e7d32;
+            margin: 2px 0 0 0;
+            font-weight: 500;
+            font-style: italic;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .company-name:hover p {
+            color: #1b5e20;
+        }
+
+        .quality-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .badge:hover::before {
+            left: 100%;
+        }
+
+        .badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 70px;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #1a3c34;
+            font-weight: 400;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s;
+            padding: 10px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #2e7d32;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #2e7d32;
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 100px;
+        }
+
+        .contacts-hero {
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            padding: 100px 20px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contacts-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #1a3c34;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .contacts-hero p {
+            font-size: 18px;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contacts-section {
+            padding: 80px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #fff;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #f8f9fa, #e8f5e9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #1a3c34;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-family: 'Playfair Display', serif;
+            color: #1a3c34;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .contact-details p {
+            color: #555;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .contact-details a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-details a:hover {
+            color: #1b5e20;
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e8f5e9;
+        }
+
+        /* Map card (вместо формы) */
+        .map-card {
+            background: #fff;
+            padding: 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e8f5e9;
+            overflow: hidden;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 520px;
+            border: 0;
+            display: block;
+        }
+
+        .map-actions {
+            padding: 16px 20px;
+            background: #fff;
+            border-top: 1px solid #e8f5e9;
+            display: flex;
+            justify-content: center;
+        }
+
+        .map-open-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            background: #ffcc00;
+            color: #000;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            border: 1px solid #e5b800;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            letter-spacing: 0.2px;
+        }
+
+        .map-open-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background: #ffbf00;
+        }
+
+        .map-open-btn:active {
+            transform: translateY(0);
+            background: #e6b800;
+        }
+
+        .contact-form h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #1a3c34;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1a3c34;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e8f5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+            background: #fff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .hours-section {
+            background: linear-gradient(135deg, #1a3c34, #2e7d32);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hours-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hours-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .hours-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hours-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #a5d6a7;
+        }
+
+        .hours-item p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px;
+            background: #1a3c34;
+            color: #fff;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #a5d6a7;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 5px;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 4px;
+            background: #1a3c34;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 5px;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 8px;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 18px;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 28px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 18px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 18px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: none;
+            display: none;
+            flex-direction: column;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            transform: translateY(-100%);
+            opacity: 0;
+            overflow-y: auto;
+        }
+
+        /* Desktop menu improvements */
+        @media (min-width: 769px) {
+            nav {
+                position: relative;
+            }
+            
+            .header-center {
+                margin: 0 30px;
+            }
+
+            .company-name h1 {
+                font-size: 32px;
+            }
+
+            .company-name p {
+                font-size: 14px;
+            }
+
+            .quality-badges {
+                gap: 12px;
+            }
+
+            .badge {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: inline-block;
+            }
+
+            .company-name::after {
+                width: 60px;
+                height: 3px;
+            }
+
+            nav {
+                min-height: 70px;
+            }
+            
+            .mobile-menu-toggle {
+                width: 45px;
+                height: 45px;
+                padding: 12px;
+                position: relative;
+                margin-left: 20px;
+                flex-shrink: 0;
+            }
+
+            .mobile-menu-toggle span {
+                width: 32px;
+                height: 4px;
+            }
+
+            .mobile-menu-toggle span:nth-child(1) {
+                top: 12px;
+            }
+
+            .mobile-menu-toggle span:nth-child(2) {
+                top: 20px;
+            }
+
+            .mobile-menu-toggle span:nth-child(3) {
+                top: 28px;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                top: 20px;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                top: 20px;
+            }
+
+            .mobile-menu {
+                top: 0;
+                width: 400px;
+                left: auto;
+                right: 0;
+                height: 100vh;
+                transform: translateX(100%);
+                border-radius: 0;
+                margin-top: 0;
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out;
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+                backdrop-filter: none;
+                border-left: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 50px 0 50px 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                overflow-y: auto;
+                z-index: 1002;
+            }
+
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu a {
+                padding: 25px 40px;
+                font-size: 22px;
+                font-weight: 500;
+                color: #1a3c34;
+                text-decoration: none;
+                display: block;
+                position: relative;
+                margin: 8px 30px;
+                border-radius: 15px;
+                transition: all 0.3s ease;
+                border: none;
+                background: transparent;
+                text-align: left;
+            }
+
+            .mobile-menu a:hover {
+                background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+                color: white;
+                transform: translateX(10px);
+                box-shadow: 0 10px 25px rgba(46, 125, 50, 0.3);
+            }
+
+            .mobile-menu a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 6px;
+                height: 0;
+                background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+                border-radius: 3px;
+                transition: height 0.3s ease;
+                transform: translateY(-50%);
+            }
+
+            .mobile-menu a:hover::before {
+                height: 70%;
+            }
+
+            /* Кнопка закрытия меню */
+            .menu-close-btn {
+                position: absolute;
+                top: 15px;
+                right: 25px;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                z-index: 1003;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px;
+                border-radius: 50%;
+                transition: background 0.3s ease;
+            }
+
+            .menu-close-btn:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-close-btn span {
+                position: absolute;
+                width: 20px;
+                height: 2px;
+                background: #1a3c34;
+                transition: all 0.3s ease;
+            }
+
+            .menu-close-btn span:nth-child(1) {
+                transform: rotate(45deg);
+            }
+
+            .menu-close-btn span:nth-child(2) {
+                transform: rotate(-45deg);
+            }
+
+            .menu-close-btn:hover span {
+                background: #2e7d32;
+            }
+
+            /* Заголовок меню */
+            .menu-header {
+                padding: 0 40px 25px 40px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                margin-bottom: 25px;
+            }
+
+            .menu-header h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 24px;
+                color: #1a3c34;
+                margin: 0;
+                font-weight: 700;
+                text-align: left;
+            }
+
+            .mobile-menu-overlay {
+                background: transparent;
+                backdrop-filter: none;
+                top: 0;
+                height: 100vh;
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            padding: 12px 10px;
+            text-decoration: none;
+            color: #1a3c34;
+            font-weight: 400;
+            font-size: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: color 0.3s, background 0.2s;
+            border-radius: 8px;
+            margin-bottom: 3px;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a:active {
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+            border-bottom-color: #2e7d32;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Prevent content overlap when mobile menu is open - только для ПК */
+        @media (min-width: 769px) {
+            body.mobile-menu-open {
+                overflow: hidden;
+                height: 100vh;
+            }
+        }
+
+        /* Tablet styles */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .company-name h1 {
+                font-size: 26px;
+            }
+
+            .company-name p {
+                font-size: 12px;
+            }
+
+            .badge {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: inline-block;
+            }
+
+            .header-center {
+                margin: 0 20px;
+            }
+
+            .company-name::after {
+                width: 50px;
+                height: 2px;
+            }
+
+            nav {
+                min-height: 55px;
+            }
+
+            .contacts-grid {
+                gap: 40px;
+            }
+
+            .contact-form, .contact-info {
+                padding: 30px;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            /* Hero Section */
+            .contacts-hero {
+                padding: 60px 15px 30px;
+            }
+
+            .contacts-hero h1 {
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+
+            .contacts-hero p {
+                font-size: 16px;
+            }
+
+            /* Contacts Section */
+            .contacts-section {
+                padding: 40px 15px;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .contact-form, .contact-info {
+                padding: 25px;
+            }
+
+            .contact-form h2, .contact-info h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .contact-item {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+
+            .contact-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+                margin-right: 15px;
+            }
+
+            .contact-details h3 {
+                font-size: 16px;
+            }
+
+            /* Hours Section */
+            .hours-section {
+                padding: 40px 15px;
+            }
+
+            .hours-section h2 {
+                font-size: 28px;
+                margin-bottom: 25px;
+            }
+
+            .hours-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .hours-item {
+                padding: 20px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 40px 15px;
+            }
+
+            footer p {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            /* Logo */
+            .logo img {
+                height: 50px;
+            }
+
+            .logo {
+                align-self: center;
+            }
+
+            .mobile-menu-toggle {
+                align-self: center;
+            }
+
+            /* Header */
+            header {
+                padding: 12px 0;
+            }
+
+            nav {
+                padding: 0 15px;
+                min-height: 50px;
+            }
+
+            .header-center {
+                margin: 0 10px;
+            }
+
+            .company-name h1 {
+                font-size: 20px;
+            }
+
+            .company-name p {
+                font-size: 9px;
+            }
+
+            .quality-badges {
+                gap: 4px;
+            }
+
+            .badge {
+                font-size: 8px;
+                padding: 2px 6px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none;
+            }
+
+            .company-name::after {
+                width: 30px;
+                height: 1px;
+            }
+
+            nav {
+                min-height: 48px;
+            }
+
+            .mobile-menu {
+                top: 55px;
+                height: calc(100vh - 55px);
+            }
+
+            main {
+                padding-top: 80px;
+            }
+
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header {
+                display: none;
+            }
+
+            .menu-close-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contacts-hero h1 {
+                font-size: 28px;
+            }
+
+            .contacts-hero p {
+                font-size: 14px;
+            }
+
+            .contact-form, .contact-info {
+                padding: 20px;
+            }
+
+            .contact-form h2, .contact-info h2 {
+                font-size: 22px;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                padding: 15px;
+                font-size: 16px;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .mobile-menu {
+                top: 50px;
+                height: calc(100vh - 50px);
+                padding: 12px;
+            }
+
+            nav {
+                min-height: 45px;
+            }
+
+            .mobile-menu a {
+                padding: 10px 0;
+                font-size: 14px;
+                margin-bottom: 2px;
+            }
+
+            .header-center {
+                margin: 0 8px;
+            }
+
+            .company-name h1 {
+                font-size: 16px;
+            }
+
+            .company-name p {
+                font-size: 8px;
+            }
+
+            .quality-badges {
+                gap: 3px;
+            }
+
+            .badge {
+                font-size: 7px;
+                padding: 1px 4px;
+            }
+
+            .company-name::after {
+                width: 25px;
+                height: 1px;
+            }
+
+            nav {
+                min-height: 42px;
+            }
+
+            main {
+                padding-top: 70px;
+            }
+
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header {
+                display: none;
+            }
+
+            .menu-close-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .contacts-hero h1 {
+                font-size: 24px;
+            }
+
+            .contacts-hero p {
+                font-size: 13px;
+            }
+
+            .contact-form, .contact-info {
+                padding: 15px;
+            }
+
+            .contact-form h2, .contact-info h2 {
+                font-size: 20px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            nav {
+                min-height: 40px;
+            }
+
+            .header-center {
+                margin: 0 6px;
+            }
+
+            .company-name h1 {
+                font-size: 14px;
+            }
+
+            .company-name p {
+                font-size: 7px;
+            }
+
+            .quality-badges {
+                gap: 2px;
+            }
+
+            .badge {
+                font-size: 6px;
+                padding: 1px 3px;
+            }
+
+            .company-name::after {
+                width: 20px;
+                height: 1px;
+            }
+
+            main {
+                padding-top: 65px;
+            }
+
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header {
+                display: none;
+            }
+
+            .menu-close-btn {
+                display: none;
+            }
+        }
+    
+        /* Slogan wrap override */
+        .company-name p {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Красногвардеец" loading="lazy">
+                </a>
+            </div>
+            <div class="header-center">
+                <div class="company-name">
+                    <h1>Красногвардеец</h1>
+                    <p>Натуральные молочные продукты с 1995 года</p>
+                </div>
+                
+            </div>
+            <div class="nav-links">
+                <a href="../index.html">Главная</a>
+                <a href="../index.html#products">Продукты</a>
+                <a href="../Pelageia/katalog.html">Каталог</a>
+                <a href="../o nas/onas.html">О нас</a>
+                <a href="#contacts">Контакты</a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu-overlay"></div>
+        <div class="mobile-menu">
+            <div class="menu-close-btn">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-header">
+                <h3>Навигация</h3>
+            </div>
+            <a href="../index.html">Главная</a>
+            <a href="../index.html#products">Продукты</a>
+            <a href="../Pelageia/katalog.html">Каталог</a>
+            <a href="../o nas/onas.html">О нас</a>
+            <a href="#contacts">Контакты</a>
+            <a href="../sertifikat/serf.html">Сертификаты</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="contacts-hero" id="contacts">
+            <h1>Свяжитесь с нами</h1>
+            <p>Мы всегда рады ответить на ваши вопросы и предложения. Наша команда готова помочь вам выбрать лучшие молочные продукты для вашей семьи.</p>
+        </section>
+
+        <!-- Contacts Section -->
+        <section class="contacts-section">
+            <div class="contacts-grid">
+                <div class="contact-info">
+                    <h2>Контактная информация</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h3>Адрес производства</h3>
+                            <p>Московская область,<br>
+                            Серпуховский район,<br>
+                            д. Красногвардеец, ул. Молочная, 15</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h3>Телефоны</h3>
+                            <p>Отдел продаж: <a href="tel:+74951234567">+7 (495) 123-45-67</a><br>
+                            Производство: <a href="tel:+74951234568">+7 (495) 123-45-68</a><br>
+                            Горячая линия: <a href="tel:+78001234567">8 (800) 123-45-67</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h3>Электронная почта</h3>
+                            <p>Общие вопросы: <a href="mailto:info@chistyeluga.ru">info@chistyeluga.ru</a><br>
+                            Продажи: <a href="mailto:sales@chistyeluga.ru">sales@chistyeluga.ru</a><br>
+                            Поддержка: <a href="mailto:support@chistyeluga.ru">support@chistyeluga.ru</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div class="contact-details">
+                            <h3>Социальные сети</h3>
+                            <p>Следите за нашими новостями:<br>
+                            <a href="#" target="_blank">ВКонтакте</a> | <a href="#" target="_blank">Instagram</a><br>
+                            <a href="#" target="_blank">Одноклассники</a> | <a href="#" target="_blank">Telegram</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-card">
+                    <iframe class="map-frame" title="Карта расположения"
+                        src="https://yandex.ru/map-widget/v1/?ll=39.163986%2C46.158821&z=17&pt=39.163986,46.158821,pm2rdm"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                    <div class="map-actions">
+                        <a class="map-open-btn" href="https://yandex.ru/maps/-/CHhmnH8q" target="_blank" rel="noopener noreferrer" aria-label="Открыть в Яндекс Картах (в новой вкладке)">Открыть в Яндекс Картах ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Working Hours Section -->
+        <section class="hours-section">
+            <div class="hours-content">
+                <h2>Режим работы</h2>
+                <div class="hours-grid">
+                    <div class="hours-item">
+                        <h3>Производство</h3>
+                        <p>Понедельник - Пятница:<br><strong>06:00 - 22:00</strong></p>
+                        <p>Суббота:<br><strong>06:00 - 18:00</strong></p>
+                        <p>Воскресенье:<br><strong>Выходной</strong></p>
+                    </div>
+
+                    <div class="hours-item">
+                        <h3>Офис продаж</h3>
+                        <p>Понедельник - Пятница:<br><strong>09:00 - 18:00</strong></p>
+                        <p>Суббота:<br><strong>10:00 - 16:00</strong></p>
+                        <p>Воскресенье:<br><strong>Выходной</strong></p>
+                    </div>
+
+                    <div class="hours-item">
+                        <h3>Горячая линия</h3>
+                        <p>Понедельник - Пятница:<br><strong>08:00 - 20:00</strong></p>
+                        <p>Суббота - Воскресенье:<br><strong>10:00 - 18:00</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Молочный завод "Красногвардеец". Все права защищены.</p>
+        <p>Контакты: <a href="mailto:info@chistyeluga.ru">info@chistyeluga.ru</a> | <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Scroll to top on page load/refresh
+        window.addEventListener('beforeunload', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // Ensure page starts at top
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }, 100);
+        });
+
+        // Alternative method for scroll to top
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // Additional scroll to top on page refresh
+        window.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // Force scroll to top immediately
+        if (window.pageYOffset > 0) {
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const menuCloseBtn = document.querySelector('.menu-close-btn');
+
+        function openMenu() {
+            mobileMenuToggle.classList.add('active');
+            mobileMenu.classList.add('active');
+            
+            // Блокируем прокрутку только на ПК (769px и больше)
+            if (window.innerWidth >= 769) {
+                document.body.classList.add('mobile-menu-open');
+            }
+        }
+
+        function closeMenu() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            
+            // Разблокируем прокрутку только на ПК
+            if (window.innerWidth >= 769) {
+                document.body.classList.remove('mobile-menu-open');
+            }
+        }
+
+        mobileMenuToggle.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        // Close menu when clicking close button
+        if (menuCloseBtn) {
+            menuCloseBtn.addEventListener('click', closeMenu);
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+            
+            // Убираем блокировку прокрутки при переходе на мобильную версию
+            if (window.innerWidth < 769) {
+                document.body.classList.remove('mobile-menu-open');
+            }
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Убрана форма. Никаких обработчиков отправки не требуется.
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe contact items and map card
+        document.querySelectorAll('.contact-item, .map-card, .hours-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
