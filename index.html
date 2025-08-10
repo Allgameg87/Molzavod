@@ -3001,7 +3001,7 @@
                 <h3>Навигация</h3>
             </div>
             <a href="https://allgameg87.github.io/Molzavod">Главная</a>
-            <a href="https://allgameg87.github.io/Molzavod#products">Продукты</a>
+            <a href="https://allgameg87.github.io/Molzavod">Продукты</a>
             <a href="https://allgameg87.github.io/Molzavod/katalog">Каталог</a>
             <a href="https://allgameg87.github.io/Molzavod/onas">О нас</a>
             <a href="https://allgameg87.github.io/Molzavod/kontakt">Контакты</a>
@@ -3185,8 +3185,8 @@
 
         // Smooth Scroll for desktop navigation - удалено, так как теперь используется только мобильное меню
 
-        // Smooth Scroll for mobile navigation
-        document.querySelectorAll('.mobile-menu a').forEach(anchor => {
+        // Smooth Scroll only for internal anchors inside menu
+        document.querySelectorAll('.mobile-menu a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
