@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Сертификаты — Красногвардеец</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+    <style>
+        /* Базовые стили и переменные в духе index.html */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; overflow-x: hidden; }
+        body { background: #f8f9fa; color: #333; overflow-x: hidden; }
+
+        :root {
+            --primary-color: #1a3c34;
+            --secondary-color: #2e7d32;
+            --accent-color: #4caf50;
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: #ffffff;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: transform 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+        header.scrolled { transform: translateY(-10px); }
+        nav { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; min-height: 60px; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 70px; }
+
+        .header-center { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: 0 20px; }
+        .company-name { position: relative; padding-bottom: 6px; }
+        .company-name::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, transparent, var(--secondary-color), transparent); }
+        .company-name h1 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--primary-color); font-weight: 700; }
+        @supports (-webkit-background-clip: text) {
+            .company-name h1 { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
+        }
+        .company-name p { font-size: 12px; color: var(--secondary-color); margin-top: 6px; font-weight: 500; font-style: italic; }
+
+        /* Mobile Menu — точная копия из kontakt.html */
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 4px;
+            background: #1a3c34;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 5px;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 8px;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 18px;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 28px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 18px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 18px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: none;
+            display: none;
+            flex-direction: column;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            transform: translateY(-100%);
+            opacity: 0;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            padding: 12px 10px;
+            text-decoration: none;
+            color: #1a3c34;
+            font-weight: 400;
+            font-size: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: color 0.3s, background 0.2s;
+            border-radius: 8px;
+            margin-bottom: 3px;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a:active {
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+            border-bottom-color: #2e7d32;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Анимация как на главной */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px){
+            .logo img { height: 50px; }
+            nav { min-height: 50px; padding: 0 15px; }
+            .company-name h1 { font-size: 20px; }
+            .company-name p { font-size: 10px; }
+            
+            /* Мобильные стили меню */
+            header { padding: 12px 0; }
+            nav { min-height: 50px; }
+            .mobile-menu { top: 55px; height: calc(100vh - 55px); }
+            
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header { display: none !important; }
+            .menu-close-btn { display: none !important; }
+        }
+
+        /* Desktop menu improvements — точная копия из kontakt.html */
+        @media (min-width: 769px) {
+            nav {
+                position: relative;
+            }
+            
+            .header-center {
+                margin: 0 30px;
+            }
+
+            .company-name h1 {
+                font-size: 32px;
+            }
+
+            .company-name p {
+                font-size: 14px;
+            }
+
+            .company-name::after {
+                width: 60px;
+                height: 3px;
+            }
+
+            nav {
+                min-height: 70px;
+            }
+            
+            .mobile-menu-toggle {
+                width: 45px;
+                height: 45px;
+                padding: 12px;
+                position: relative;
+                margin-left: 20px;
+                flex-shrink: 0;
+            }
+
+            .mobile-menu-toggle span {
+                width: 32px;
+                height: 4px;
+            }
+
+            .mobile-menu-toggle span:nth-child(1) {
+                top: 12px;
+            }
+
+            .mobile-menu-toggle span:nth-child(2) {
+                top: 20px;
+            }
+
+            .mobile-menu-toggle span:nth-child(3) {
+                top: 28px;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                top: 20px;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                top: 20px;
+            }
+
+            .mobile-menu {
+                top: 0;
+                width: 400px;
+                left: auto;
+                right: 0;
+                height: 100vh;
+                transform: translateX(100%);
+                border-radius: 0;
+                margin-top: 0;
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out;
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+                backdrop-filter: none;
+                border-left: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 50px 0 50px 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                overflow-y: auto;
+                z-index: 1002;
+            }
+
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu a {
+                padding: 25px 40px;
+                font-size: 22px;
+                font-weight: 500;
+                color: #1a3c34;
+                text-decoration: none;
+                display: block;
+                position: relative;
+                margin: 8px 30px;
+                border-radius: 15px;
+                transition: all 0.3s ease;
+                border: none;
+                background: transparent;
+                text-align: left;
+            }
+
+            .mobile-menu a:hover {
+                background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+                color: white;
+                transform: translateX(10px);
+                box-shadow: 0 10px 25px rgba(46, 125, 50, 0.3);
+            }
+
+            .mobile-menu a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 6px;
+                height: 0;
+                background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+                border-radius: 3px;
+                transition: height 0.3s ease;
+                transform: translateY(-50%);
+            }
+
+            .mobile-menu a:hover::before {
+                height: 70%;
+            }
+
+            /* Кнопка закрытия меню */
+            .menu-close-btn {
+                position: absolute;
+                top: 15px;
+                right: 25px;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                z-index: 1003;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px;
+                border-radius: 50%;
+                transition: background 0.3s ease;
+            }
+
+            .menu-close-btn:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-close-btn span {
+                position: absolute;
+                width: 20px;
+                height: 2px;
+                background: #1a3c34;
+                transition: all 0.3s ease;
+            }
+
+            .menu-close-btn span:nth-child(1) {
+                transform: rotate(45deg);
+            }
+
+            .menu-close-btn span:nth-child(2) {
+                transform: rotate(-45deg);
+            }
+
+            .menu-close-btn:hover span {
+                background: #2e7d32;
+            }
+
+            /* Заголовок меню */
+            .menu-header {
+                display: block;
+                padding: 0 40px 25px 40px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                margin-bottom: 25px;
+            }
+
+            .menu-header h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 24px;
+                color: #1a3c34;
+                margin: 0;
+                font-weight: 700;
+                text-align: left;
+            }
+
+            .mobile-menu-overlay {
+                background: transparent;
+                backdrop-filter: none;
+                top: 0;
+                height: 100vh;
+            }
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            padding: 12px 10px;
+            text-decoration: none;
+            color: #1a3c34;
+            font-weight: 400;
+            font-size: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: color 0.3s, background 0.2s;
+            border-radius: 8px;
+            margin-bottom: 3px;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a:active {
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+            border-bottom-color: #2e7d32;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        /* Prevent content overlap when mobile menu is open - только для ПК */
+        @media (min-width: 769px) {
+            body.mobile-menu-open {
+                overflow: hidden;
+                height: 100vh;
+            }
+        }
+
+        
+
+        /* Сертификаты (галерея) */
+        .certificates { padding: 110px 20px 90px; max-width: 1400px; margin: 0 auto; background: #fff; position: relative; }
+        .certificates h2 { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--primary-color); text-align: center; margin-bottom: 50px; }
+        .certificate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
+        .certificate-card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-md); transition: transform .35s, box-shadow .35s; position: relative; height: 380px; display: flex; flex-direction: column; }
+        .certificate-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        .certificate-card img { width: 100%; height: 260px; object-fit: cover; flex: 0 0 auto; transition: transform .35s; }
+        .certificate-card:hover img { transform: scale(1.06); }
+        .certificate-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--primary-color); margin: 14px 16px 8px; font-weight: 700; }
+        .certificate-card p { font-size: 14px; color: #666; margin: 0 16px 16px; line-height: 1.5; }
+        .certificate-overlay { position: absolute; inset: 0; background: rgba(46,125,50,0.82); opacity: 0; display: flex; align-items: center; justify-content: center; transition: opacity .3s; }
+        .certificate-card:hover .certificate-overlay { opacity: 1; }
+        .certificate-overlay button { color: #fff; background: transparent; border: 2px solid #fff; border-radius: 10px; padding: 12px 22px; font-weight: 700; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease; }
+        .certificate-overlay button:hover { background: #fff; color: var(--secondary-color); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .certificate-overlay button:active { transform: translateY(0); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+
+        /* Затемнение выполняется общим overlay поверх всей страницы */
+
+        @media (max-width: 480px){
+            .certificates { padding: 90px 14px 50px; }
+            .certificates h2 { font-size: 32px; margin-bottom: 32px; }
+            .certificate-card { height: 340px; }
+            .certificate-card img { height: 220px; }
+        }
+
+        /* Лайтбокс */
+        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
+        .lightbox.active { display: flex; }
+        .lightbox-content { position: relative; max-width: min(92vw, 1200px); max-height: 86vh; display: flex; flex-direction: column; align-items: center; }
+        .lightbox-image { max-width: 100%; max-height: 70vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .lightbox-caption { color: #fff; margin-top: 12px; font-size: 16px; opacity: .95; text-align: center; }
+        .lightbox-close { position: absolute; top: -10px; right: -10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); color: #fff; border: none; font-size: 20px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+        .lightbox-close:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+        .lightbox-close:active { transform: translateY(0); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .lightbox-nav { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; pointer-events: none; }
+        .lightbox-btn { pointer-events: all; background: rgba(255,255,255,0.15); color: #fff; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; font-size: 22px; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+        .lightbox-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
+        .lightbox-btn:active { transform: translateY(0); box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+
+        /* Footer */
+        footer { padding: 60px 20px; background: var(--primary-color); color: #fff; text-align: center; }
+        footer a { color: #a5d6a7; text-decoration: none; padding: 5px; }
+        footer a:hover { color: #fff; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="https://allgameg87.github.io/Molzavod/">
+                    <img src="../images/logo.png" alt="Красногвардеец" loading="lazy" />
+                </a>
+            </div>
+            <div class="header-center">
+                <div class="company-name">
+                    <h1>Красногвардеец</h1>
+                    <p>Натуральные молочные продукты с 1995 года</p>
+                </div>
+            </div>
+            <div class="mobile-menu-toggle" aria-label="Открыть меню" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu-overlay"></div>
+        <div class="mobile-menu" role="navigation">
+            <div class="menu-close-btn"><span></span><span></span></div>
+            <div class="menu-header"><h3>Навигация</h3></div>
+            <a href="../index/index.html#home">Главная</a>
+            <a href="../index/index.html#products">Продукты</a>
+            <a href="../Pelageia/katalog.html">Каталог</a>
+            <a href="../index/index.html#about">О нас</a>
+            <a href="../index/index.html#contacts">Контакты</a>
+            <a href="#certificates">Сертификаты</a>
+        </div>
+    </header>
+
+    
+
+    <!-- Certificates -->
+    <section class="certificates" id="certificates">
+        <h2>Наши сертификаты</h2>
+        <div class="certificate-grid" id="certificateGrid">
+            <!-- Сертификаты будут загружены автоматически из папки ../images/ -->
+            <!-- Для отображения сертификатов поместите файлы с именами: serf 1.jpg, serf 2.jpg, serf 3.jpg, serf 4.jpg, serf 5.jpg, serf 6.jpg -->
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-modal="true" role="dialog">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Закрыть">×</button>
+            <img class="lightbox-image" src="" alt="Просмотр сертификата" />
+            <div class="lightbox-caption"></div>
+            <div class="lightbox-nav">
+                <button class="lightbox-btn" id="prevBtn" aria-label="Предыдущий">❮</button>
+                <button class="lightbox-btn" id="nextBtn" aria-label="Следующий">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contacts">
+        <p>© 2025 Молочный завод "Красногвардеец". Все права защищены.</p>
+        <p>Контакты: <a href="mailto:info@chistyeluga.ru">info@chistyeluga.ru</a> | <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+    </footer>
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        // Старт сверху при заходе
+        window.addEventListener('load', () => {
+            setTimeout(() => { window.scrollTo(0, 0); }, 50);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // Mobile menu
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const drawer = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.mobile-menu-overlay');
+        const closeIcon = document.querySelector('.menu-close-btn');
+
+        function openMenu(){
+            toggle.classList.add('active');
+            drawer.classList.add('active');
+            overlay.classList.add('active');
+            if (window.innerWidth >= 769) {
+                document.body.classList.add('mobile-menu-open');
+            }
+            document.body.classList.add('nav-open');
+        }
+        function closeMenu(){
+            toggle.classList.remove('active');
+            drawer.classList.remove('active');
+            overlay.classList.remove('active');
+            if (window.innerWidth >= 769) {
+                document.body.classList.remove('mobile-menu-open');
+            }
+            document.body.classList.remove('nav-open');
+        }
+
+        toggle.addEventListener('click', () => { drawer.classList.contains('active') ? closeMenu() : openMenu(); });
+        // На главной overlay не закрывает меню — поведение оставим идентичным
+        // overlay.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', closeMenu));
+        if (closeIcon) closeIcon.addEventListener('click', closeMenu);
+
+        // Поведение при ресайзе — как на главной
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+            if (window.innerWidth < 769) { document.body.classList.remove('mobile-menu-open'); }
+            document.body.classList.remove('nav-open');
+        });
+
+        // GSAP animations (только карточки)
+
+        if (window.ScrollTrigger){
+            gsap.utils.toArray('.certificate-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: { trigger: card, start: 'top 85%' },
+                    opacity: 0, y: 40, duration: 0.8, delay: i * 0.05, ease: 'power3.out'
+                });
+            });
+        }
+
+        // Автоматическая загрузка сертификатов
+        const certificateGrid = document.getElementById('certificateGrid');
+        
+        // Список сертификатов для автозагрузки (формат: serf 1.jpg, serf 2.jpg и т.д.)
+        const certificateFiles = [
+            'serf 1.jpg',
+            'serf 2.jpg', 
+            'serf 3.jpg',
+            'serf 4.jpg',
+            'serf 5.jpg',
+            'serf 6.jpg'
+        ];
+
+        // Названия и описания для сертификатов
+        const certificateInfo = {
+            'serf 1.jpg': {
+                title: 'Сертификат соответствия №1',
+                description: 'Сертификат соответствия качества молочной продукции требованиям ГОСТ.'
+            },
+            'serf 2.jpg': {
+                title: 'Сертификат безопасности №2',
+                description: 'Подтверждение безопасности пищевых продуктов и соблюдения санитарных норм.'
+            },
+            'serf 3.jpg': {
+                title: 'Декларация соответствия №3',
+                description: 'Соответствие молочной продукции техническим регламентам ТР ТС.'
+            },
+            'serf 4.jpg': {
+                title: 'Ветеринарное свидетельство №4',
+                description: 'Сертификат качества и безопасности сырья животного происхождения.'
+            },
+            'serf 5.jpg': {
+                title: 'Гигиенический сертификат №5',
+                description: 'Подтверждение соблюдения санитарно-гигиенических норм производства.'
+            },
+            'serf 6.jpg': {
+                title: 'Сертификат менеджмента качества №6',
+                description: 'Сертификат системы менеджмента качества ISO 9001.'
+            }
+        };
+
+        // Функция для загрузки сертификатов
+        async function loadCertificates() {
+            const loadedCertificates = [];
+            
+            // Пытаемся загрузить каждый сертификат
+            for (const filename of certificateFiles) {
+                try {
+                    const img = new Image();
+                    img.src = `../images/${filename}`;
+                    
+                    await new Promise((resolve, reject) => {
+                        img.onload = () => {
+                            const info = certificateInfo[filename];
+                            loadedCertificates.push({
+                                filename: filename,
+                                title: info.title,
+                                description: info.description,
+                                src: img.src
+                            });
+                            resolve();
+                        };
+                        img.onerror = () => resolve(); // Не прерываем загрузку, если файл не найден
+                    });
+                } catch (error) {
+                    console.log(`Сертификат ${filename} не найден`);
+                }
+            }
+
+            // Если сертификаты найдены, отображаем их
+            if (loadedCertificates.length > 0) {
+                certificateGrid.innerHTML = '';
+                loadedCertificates.forEach(cert => {
+                    const cardHTML = `
+                        <div class="certificate-card" data-caption="${cert.title}">
+                            <img src="${cert.src}" alt="${cert.title}" loading="lazy" />
+                            <div class="certificate-overlay"><button type="button">Открыть</button></div>
+                            <h3>${cert.title}</h3>
+                            <p>${cert.description}</p>
+                        </div>
+                    `;
+                    certificateGrid.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            } else {
+                // Если сертификаты не найдены, показываем информационное сообщение
+                showNoCertificatesMessage();
+            }
+            
+            // Инициализируем лайтбокс после загрузки
+            initializeLightbox();
+        }
+
+        // Функция для показа сообщения об отсутствии сертификатов
+        function showNoCertificatesMessage() {
+            const messageHTML = `
+                <div class="certificate-card" style="grid-column: 1 / -1; text-align: center; padding: 60px 40px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">📋</div>
+                    <h3>Сертификаты не найдены</h3>
+                    <p>Для отображения сертификатов поместите файлы изображений в папку <code>images/</code> с именами:</p>
+                    <p style="margin-top: 15px; font-family: monospace; background: #f5f5f5; padding: 10px; border-radius: 5px;">
+                        serf 1.jpg<br>
+                        serf 2.jpg<br>
+                        serf 3.jpg<br>
+                        serf 4.jpg<br>
+                        serf 5.jpg<br>
+                        serf 6.jpg
+                    </p>
+                </div>
+            `;
+            certificateGrid.innerHTML = messageHTML;
+        }
+
+        // Lightbox logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.querySelector('.lightbox-image');
+        const lightboxCaption = document.querySelector('.lightbox-caption');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        let cards = [];
+        let images = [];
+        let current = 0;
+
+        function initializeLightbox() {
+            cards = Array.from(document.querySelectorAll('.certificate-card'));
+            images = cards.map(c => ({
+                src: c.querySelector('img')?.getAttribute('src') || '',
+                caption: c.getAttribute('data-caption') || c.querySelector('h3')?.textContent || ''
+            })).filter(img => img.src); // Фильтруем карточки без изображений
+            
+            // Добавляем обработчики событий
+            cards.forEach((card, idx) => {
+                if (card.querySelector('img')) { // Только для карточек с изображениями
+                    card.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        show(idx);
+                    });
+                }
+            });
+        }
+
+        function show(index){
+            if (images.length === 0) return;
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+            current = index;
+            lightboxImg.src = images[current].src;
+            lightboxCaption.textContent = images[current].caption;
+            lightbox.classList.add('active');
+        }
+        function hide(){ lightbox.classList.remove('active'); }
+        function next(){ show(current + 1); }
+        function prev(){ show(current - 1); }
+
+        // Обработчики лайтбокса
+        closeBtn.addEventListener('click', hide);
+        nextBtn.addEventListener('click', next);
+        prevBtn.addEventListener('click', prev);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) hide(); });
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') hide();
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+
+        // Запускаем загрузку сертификатов при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadCertificates);
+    </script>
+</body>
+</html>
+
+
