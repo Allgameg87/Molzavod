@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Молочный завод "Чистые Луга"</title>
+    <title>Молочный завод "Красногвардеец"</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -57,11 +57,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 20px 0;
+            padding: 15px 0;
             transition: transform 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         header.scrolled {
@@ -75,15 +76,152 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0 20px;
+            min-width: 0;
+        }
+
+        .company-name {
+            margin-bottom: 8px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .company-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2e7d32, transparent);
+        }
+
+        .company-name h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #1a3c34;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        @supports (-webkit-background-clip: text) {
+            .company-name h1 {
+                background: linear-gradient(135deg, #1a3c34, #2e7d32);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                color: transparent;
+            }
+        }
+
+        .company-name h1 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .company-name p {
+            font-size: 12px;
+            color: #2e7d32;
+            margin: 2px 0 0 0;
+            font-weight: 500;
+            font-style: italic;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .company-name:hover p {
+            color: #1b5e20;
+        }
+
+        .quality-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .badge:hover::before {
+            left: 100%;
+        }
+
+        .badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
             display: flex;
             align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+            flex-shrink: 0;
         }
 
         .logo img {
             height: 70px;
+        }
+
+        .nav-links {
+            display: none;
         }
 
         .nav-links a {
@@ -351,6 +489,8 @@
             loading: lazy;
         }
 
+
+
         /* Footer */
         footer {
             padding: 60px 20px;
@@ -377,7 +517,7 @@
 
         /* Mobile Menu */
         .mobile-menu-toggle {
-            display: none;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             cursor: pointer;
@@ -385,6 +525,8 @@
             width: 40px;
             height: 40px;
             position: relative;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            flex-shrink: 0;
         }
 
         .mobile-menu-toggle span {
@@ -425,11 +567,12 @@
 
         .mobile-menu {
             position: fixed;
-            top: 80px;
+            top: 70px;
             left: 0;
             width: 100%;
+            height: calc(100vh - 70px);
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
+            backdrop-filter: none;
             display: none;
             flex-direction: column;
             padding: 15px;
@@ -438,6 +581,217 @@
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
             transform: translateY(-100%);
             opacity: 0;
+            overflow-y: auto;
+        }
+
+        /* Desktop menu improvements */
+        @media (min-width: 769px) {
+            nav {
+                position: relative;
+            }
+            
+            .header-center {
+                margin: 0 30px;
+            }
+
+            .company-name h1 {
+                font-size: 32px;
+            }
+
+            .company-name p {
+                font-size: 14px;
+            }
+
+            .quality-badges {
+                gap: 12px;
+            }
+
+            .badge {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: inline-block;
+            }
+
+            .company-name::after {
+                width: 60px;
+                height: 3px;
+            }
+
+            nav {
+                min-height: 70px;
+            }
+            
+            .mobile-menu-toggle {
+                width: 45px;
+                height: 45px;
+                padding: 12px;
+                position: relative;
+                margin-left: 20px;
+                flex-shrink: 0;
+            }
+
+            .mobile-menu-toggle span {
+                width: 32px;
+                height: 4px;
+            }
+
+            .mobile-menu-toggle span:nth-child(1) {
+                top: 12px;
+            }
+
+            .mobile-menu-toggle span:nth-child(2) {
+                top: 20px;
+            }
+
+            .mobile-menu-toggle span:nth-child(3) {
+                top: 28px;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                top: 20px;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                top: 20px;
+            }
+
+            .mobile-menu {
+                top: 0;
+                width: 400px;
+                left: auto;
+                right: 0;
+                height: 100vh;
+                transform: translateX(100%);
+                border-radius: 0;
+                margin-top: 0;
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out;
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+                backdrop-filter: none;
+                border-left: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 50px 0 50px 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                overflow-y: auto;
+                z-index: 1002;
+            }
+
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu a {
+                padding: 25px 40px;
+                font-size: 22px;
+                font-weight: 500;
+                color: #1a3c34;
+                text-decoration: none;
+                display: block;
+                position: relative;
+                margin: 8px 30px;
+                border-radius: 15px;
+                transition: all 0.3s ease;
+                border: none;
+                background: transparent;
+                text-align: left;
+            }
+
+            .mobile-menu a:hover {
+                background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+                color: white;
+                transform: translateX(10px);
+                box-shadow: 0 10px 25px rgba(46, 125, 50, 0.3);
+            }
+
+            .mobile-menu a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 6px;
+                height: 0;
+                background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+                border-radius: 3px;
+                transition: height 0.3s ease;
+                transform: translateY(-50%);
+            }
+
+            .mobile-menu a:hover::before {
+                height: 70%;
+            }
+
+            /* Убираем стрелочку для полноэкранного меню */
+            .mobile-menu::before {
+                display: none;
+            }
+
+            /* Кнопка закрытия меню */
+            .menu-close-btn {
+                position: absolute;
+                top: 15px;
+                right: 25px;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                z-index: 1003;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px;
+                border-radius: 50%;
+                transition: background 0.3s ease;
+            }
+
+            .menu-close-btn:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-close-btn span {
+                position: absolute;
+                width: 20px;
+                height: 2px;
+                background: #1a3c34;
+                transition: all 0.3s ease;
+            }
+
+            .menu-close-btn span:nth-child(1) {
+                transform: rotate(45deg);
+            }
+
+            .menu-close-btn span:nth-child(2) {
+                transform: rotate(-45deg);
+            }
+
+            .menu-close-btn:hover span {
+                background: #2e7d32;
+            }
+
+            /* Заголовок меню */
+            .menu-header {
+                padding: 0 40px 25px 40px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                margin-bottom: 25px;
+            }
+
+            .menu-header h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 24px;
+                color: #1a3c34;
+                margin: 0;
+                font-weight: 700;
+                text-align: left;
+            }
+
+            .mobile-menu-overlay {
+                background: transparent;
+                backdrop-filter: none;
+                top: 0;
+                height: 100vh;
+            }
         }
 
         .mobile-menu.active {
@@ -447,15 +801,15 @@
         }
 
         .mobile-menu a {
-            padding: 18px 10px;
+            padding: 12px 10px;
             text-decoration: none;
             color: #1a3c34;
             font-weight: 400;
-            font-size: 18px;
+            font-size: 16px;
             border-bottom: 1px solid #e0e0e0;
             transition: color 0.3s, background 0.2s;
             border-radius: 8px;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             text-align: center;
         }
 
@@ -477,12 +831,1642 @@
             .product-overlay,
             .product-overlay a:hover,
             .cta-button:hover,
-            .logo img:hover {
+            .logo img:hover,
+            .badge:hover {
                 transform: none;
                 box-shadow: none;
                 background: none;
                 opacity: 1;
                 width: 0;
+            }
+
+            .badge:hover::before {
+                left: -100%;
+            }
+
+            .company-name:hover p {
+                color: #2e7d32;
+            }
+        }
+
+        /* Landscape mobile styles */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .company-name h1 {
+                font-size: 18px;
+            }
+
+            .company-name p {
+                font-size: 10px;
+            }
+
+            .badge {
+                font-size: 7px;
+                padding: 1px 4px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none;
+            }
+
+            .header-center {
+                margin: 0 10px;
+            }
+        }
+
+        /* High resolution displays */
+        @media (min-width: 1400px) {
+            .company-name h1 {
+                font-size: 36px;
+            }
+
+            .company-name p {
+                font-size: 16px;
+            }
+
+            .badge {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+
+            .header-center {
+                margin: 0 40px;
+            }
+        }
+
+        /* Portrait tablet styles */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .company-name h1 {
+                font-size: 24px;
+            }
+
+            .company-name p {
+                font-size: 11px;
+            }
+
+            .badge {
+                font-size: 9px;
+                padding: 3px 7px;
+            }
+
+            .header-center {
+                margin: 0 18px;
+            }
+        }
+
+        /* Landscape tablet styles */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .company-name h1 {
+                font-size: 28px;
+            }
+
+            .company-name p {
+                font-size: 13px;
+            }
+
+            .badge {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+
+            .header-center {
+                margin: 0 22px;
+            }
+        }
+
+        /* Ultra wide displays */
+        @media (min-width: 1920px) {
+            .company-name h1 {
+                font-size: 40px;
+            }
+
+            .company-name p {
+                font-size: 18px;
+            }
+
+            .badge {
+                font-size: 14px;
+                padding: 6px 14px;
+            }
+
+            .header-center {
+                margin: 0 50px;
+            }
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .company-name,
+            .quality-badges,
+            .logo,
+            .mobile-menu-toggle {
+                animation: none !important;
+            }
+
+            .badge {
+                transition: none !important;
+            }
+
+            .badge::before {
+                transition: none !important;
+            }
+
+            .company-name p {
+                transition: none !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .company-name h1 {
+                color: #000000 !important;
+                text-shadow: none !important;
+            }
+
+            .company-name p {
+                color: #000000 !important;
+            }
+
+            .badge {
+                background: #000000 !important;
+                border: 2px solid #ffffff !important;
+            }
+
+            .company-name::after {
+                background: #000000 !important;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            header {
+                background: #ffffff !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .company-name h1 {
+                color: #ffffff !important;
+            }
+
+            .company-name p {
+                color: #a5d6a7 !important;
+            }
+
+            .badge {
+                background: linear-gradient(135deg, #4caf50, #2e7d32) !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+            }
+
+            .company-name::after {
+                background: linear-gradient(90deg, transparent, #4caf50, transparent) !important;
+            }
+        }
+
+        /* 4K and above displays */
+        @media (min-width: 3840px) {
+            .company-name h1 {
+                font-size: 48px;
+            }
+
+            .company-name p {
+                font-size: 22px;
+            }
+
+            .badge {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            .header-center {
+                margin: 0 80px;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .company-name h1 {
+                text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1);
+            }
+
+            .badge {
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            }
+
+            .company-name::after {
+                height: 1px;
+            }
+        }
+
+        /* Slow connection optimization */
+        @media (prefers-reduced-data: reduce) {
+            .company-name,
+            .quality-badges,
+            .logo,
+            .mobile-menu-toggle {
+                animation: none !important;
+            }
+
+            .badge::before {
+                display: none !important;
+            }
+
+            .company-name::after {
+                display: none;
+            }
+        }
+
+        /* Legacy browser support */
+        @supports not (display: flex) {
+            nav {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            .logo,
+            .header-center,
+            .mobile-menu-toggle {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .logo {
+                width: 20%;
+            }
+
+            .header-center {
+                width: 60%;
+                text-align: center;
+            }
+
+            .mobile-menu-toggle {
+                width: 20%;
+                text-align: right;
+            }
+
+            .quality-badges {
+                text-align: center;
+            }
+
+            .badge {
+                display: inline-block;
+                margin: 0 2px;
+            }
+        }
+
+        /* Fallback for browsers without gradient text support */
+        @supports not (background-clip: text) {
+            .company-name h1 {
+                color: #1a3c34 !important;
+                background: none !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            header {
+                position: static !important;
+                background: #ffffff !important;
+                box-shadow: none !important;
+                border-bottom: 2px solid #1a3c34 !important;
+                padding: 20px 0 !important;
+            }
+
+            .company-name h1 {
+                color: #1a3c34 !important;
+                font-size: 24px !important;
+            }
+
+            .company-name p {
+                color: #666 !important;
+                font-size: 12px !important;
+            }
+
+            .badge {
+                background: #1a3c34 !important;
+                color: white !important;
+                font-size: 10px !important;
+                padding: 2px 6px !important;
+                border-radius: 3px !important;
+            }
+
+            .mobile-menu-toggle {
+                display: none !important;
+            }
+
+            .company-name::after {
+                background: #1a3c34 !important;
+            }
+        }
+
+        /* Fallback for browsers without backdrop-filter */
+        @supports not (backdrop-filter: blur(10px)) {
+            header {
+                background: #ffffff !important;
+            }
+        }
+
+        /* Fallback for browsers without animation support */
+        @supports not (animation: fadeInUp 0.8s ease-out) {
+            .company-name,
+            .quality-badges,
+            .logo,
+            .mobile-menu-toggle {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Fallback for browsers without transform support */
+        @supports not (transform: translateX(-50%)) {
+            .company-name::after {
+                left: 0 !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
+
+        /* IE11 and older browsers fallback */
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            .header-center {
+                display: block !important;
+            }
+
+            .quality-badges {
+                display: block !important;
+            }
+
+            .badge {
+                display: inline-block !important;
+                margin: 2px !important;
+            }
+
+            .company-name h1 {
+                color: #1a3c34 !important;
+                background: none !important;
+            }
+        }
+
+        /* Legacy mobile browsers */
+        @media screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 0) {
+            .company-name h1 {
+                font-size: 18px !important;
+            }
+
+            .company-name p {
+                font-size: 10px !important;
+            }
+
+            .badge {
+                font-size: 8px !important;
+                padding: 1px 3px !important;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none !important;
+            }
+        }
+
+        /* Legacy tablet browsers */
+        @media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 0) {
+            .company-name h1 {
+                font-size: 24px !important;
+            }
+
+            .company-name p {
+                font-size: 12px !important;
+            }
+
+            .badge {
+                font-size: 10px !important;
+                padding: 3px 6px !important;
+            }
+        }
+
+        /* Legacy desktop browsers */
+        @media screen and (min-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 0) {
+            .company-name h1 {
+                font-size: 30px !important;
+            }
+
+            .company-name p {
+                font-size: 14px !important;
+            }
+
+            .badge {
+                font-size: 11px !important;
+                padding: 4px 8px !important;
+            }
+        }
+
+        /* TV and large screen displays */
+        @media screen and (min-width: 1920px) and (pointer: coarse) {
+            .company-name h1 {
+                font-size: 42px !important;
+            }
+
+            .company-name p {
+                font-size: 20px !important;
+            }
+
+            .badge {
+                font-size: 16px !important;
+                padding: 8px 16px !important;
+            }
+
+            .header-center {
+                margin: 0 60px !important;
+            }
+        }
+
+        /* Low resolution displays */
+        @media screen and (max-width: 1024px) and (max-height: 768px) {
+            .company-name h1 {
+                font-size: 20px !important;
+            }
+
+            .company-name p {
+                font-size: 10px !important;
+            }
+
+            .badge {
+                font-size: 8px !important;
+                padding: 2px 4px !important;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none !important;
+            }
+        }
+
+        /* Touchscreen devices with precise pointing */
+        @media (pointer: fine) and (hover: hover) {
+            .badge {
+                cursor: pointer;
+            }
+
+            .company-name {
+                cursor: pointer;
+            }
+
+            .company-name:hover {
+                transform: scale(1.02);
+                transition: transform 0.3s ease;
+            }
+        }
+
+        /* Fullscreen mode */
+        @media (display-mode: fullscreen) {
+            header {
+                padding: 20px 0 !important;
+            }
+
+            .company-name h1 {
+                font-size: 32px !important;
+            }
+
+            .company-name p {
+                font-size: 14px !important;
+            }
+
+            .badge {
+                font-size: 12px !important;
+                padding: 4px 10px !important;
+            }
+        }
+
+        /* Picture-in-picture mode */
+        @media (display-mode: picture-in-picture) {
+            .company-name h1 {
+                font-size: 16px !important;
+            }
+
+            .company-name p {
+                font-size: 8px !important;
+            }
+
+            .badge {
+                font-size: 6px !important;
+                padding: 1px 3px !important;
+            }
+
+            .badge:nth-child(n+2) {
+                display: none !important;
+            }
+        }
+
+        /* Minimal UI mode */
+        @media (display-mode: minimal-ui) {
+            header {
+                padding: 12px 0 !important;
+            }
+
+            .company-name h1 {
+                font-size: 24px !important;
+            }
+
+            .company-name p {
+                font-size: 10px !important;
+            }
+
+            .badge {
+                font-size: 8px !important;
+                padding: 2px 6px !important;
+            }
+        }
+
+        /* Standalone mode (PWA) */
+        @media (display-mode: standalone) {
+            header {
+                padding: 18px 0 !important;
+            }
+
+            .company-name h1 {
+                font-size: 30px !important;
+            }
+
+            .company-name p {
+                font-size: 13px !important;
+            }
+
+            .badge {
+                font-size: 11px !important;
+                padding: 4px 8px !important;
+            }
+        }
+
+        /* Enhanced font size for accessibility */
+        @media (prefers-reduced-transparency: reduce) {
+            header {
+                background: #ffffff !important;
+                backdrop-filter: none !important;
+            }
+
+            .badge {
+                background: #1a3c34 !important;
+                color: #ffffff !important;
+            }
+        }
+
+        /* CSS Custom Properties support */
+        @supports (color: var(--color)) {
+            :root {
+                --primary-color: #1a3c34;
+                --secondary-color: #2e7d32;
+                --accent-color: #4caf50;
+                --text-color: #333;
+                --bg-color: #ffffff;
+                --border-color: #e0e0e0;
+            }
+
+            .company-name h1 {
+                color: var(--primary-color);
+            }
+
+            .company-name p {
+                color: var(--secondary-color);
+            }
+
+            .badge {
+                background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            }
+        }
+
+        /* Container queries support */
+        @supports (container-type: inline-size) {
+            .header-center {
+                container-type: inline-size;
+            }
+
+            @container (max-width: 300px) {
+                .company-name h1 {
+                    font-size: 18px !important;
+                }
+
+                .company-name p {
+                    font-size: 9px !important;
+                }
+
+                .badge:nth-child(n+2) {
+                    display: none !important;
+                }
+            }
+        }
+
+        /* Subgrid support */
+        @supports (grid-template-rows: subgrid) {
+            .header-center {
+                display: grid;
+                grid-template-rows: auto auto;
+                gap: 8px;
+                align-content: center;
+            }
+
+            .company-name {
+                grid-row: 1;
+            }
+
+            .quality-badges {
+                grid-row: 2;
+            }
+        }
+
+        /* CSS Logical Properties support */
+        @supports (margin-inline-start: 0) {
+            .header-center {
+                margin-inline: 20px;
+                margin-block: 0;
+            }
+
+            .badge {
+                padding-inline: 8px;
+                padding-block: 3px;
+            }
+
+            .company-name {
+                padding-block-end: 6px;
+            }
+        }
+
+        /* CSS Aspect Ratio support */
+        @supports (aspect-ratio: 1) {
+            .logo img {
+                aspect-ratio: 1 / 1;
+                object-fit: contain;
+            }
+        }
+
+        /* CSS Smooth Scrolling support */
+        @supports (scroll-behavior: smooth) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
+        /* CSS Focus Visible support */
+        @supports selector(:focus-visible) {
+            .badge:focus-visible {
+                outline: 2px solid #4caf50;
+                outline-offset: 2px;
+            }
+
+            .company-name:focus-visible {
+                outline: 2px solid #4caf50;
+                outline-offset: 2px;
+            }
+        }
+
+        /* CSS ::marker support */
+        @supports selector(::marker) {
+            .quality-badges::marker {
+                content: "🌟 ";
+            }
+        }
+
+        /* CSS clamp() support */
+        @supports (font-size: clamp(1rem, 2vw, 3rem)) {
+            .company-name h1 {
+                font-size: clamp(18px, 4vw, 32px) !important;
+            }
+
+            .company-name p {
+                font-size: clamp(8px, 2vw, 14px) !important;
+            }
+
+            .badge {
+                font-size: clamp(6px, 1.5vw, 12px) !important;
+                padding: clamp(1px, 0.5vw, 4px) clamp(3px, 1vw, 10px) !important;
+            }
+        }
+
+        /* CSS env() support for safe area insets */
+        @supports (padding: env(safe-area-inset-top)) {
+            header {
+                padding-top: calc(15px + env(safe-area-inset-top));
+                padding-left: calc(20px + env(safe-area-inset-left));
+                padding-right: calc(20px + env(safe-area-inset-right));
+            }
+        }
+
+        /* CSS :has() selector support */
+        @supports selector(:has(> *)) {
+            .header-center:has(.company-name) {
+                align-items: center;
+            }
+
+            .quality-badges:has(.badge:nth-child(3)) {
+                gap: 6px;
+            }
+        }
+
+        /* CSS @layer support */
+        @supports (at-rule(@layer)) {
+            @layer base {
+                .header-center {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @layer enhancements {
+                .company-name h1 {
+                    font-style: normal;
+                }
+
+                .badge {
+                    border-radius: 12px;
+                }
+            }
+        }
+
+        /* CSS color-mix() support */
+        @supports (color: color-mix(in srgb, red, blue)) {
+            .company-name h1 {
+                color: color-mix(in srgb, #1a3c34 80%, #2e7d32 20%);
+            }
+
+            .company-name p {
+                color: color-mix(in srgb, #2e7d32 70%, #4caf50 30%);
+            }
+
+            .badge {
+                background: color-mix(in srgb, #2e7d32 60%, #1b5e20 40%);
+            }
+        }
+
+        /* CSS :where() selector support */
+        @supports selector(:where(h1, h2)) {
+            :where(.company-name h1, .company-name p) {
+                margin: 0;
+            }
+
+            :where(.badge:nth-child(1), .badge:nth-child(2)) {
+                display: inline-block;
+            }
+        }
+
+        /* CSS :is() selector support */
+        @supports selector(:is(h1, h2)) {
+            :is(.company-name h1, .company-name p) {
+                text-align: center;
+            }
+
+            :is(.badge:hover, .badge:focus) {
+                transform: translateY(-1px);
+            }
+        }
+
+        /* CSS :not() selector full support */
+        @supports selector(:not(.class1, .class2)) {
+            .badge:not(:first-child, :last-child) {
+                margin: 0 4px;
+            }
+
+            .company-name:not(:hover, :focus) {
+                opacity: 1;
+            }
+        }
+
+        /* CSS scroll-snap support */
+        @supports (scroll-snap-type: x mandatory) {
+            .quality-badges {
+                scroll-snap-type: x mandatory;
+                overflow-x: auto;
+            }
+
+            .badge {
+                scroll-snap-align: start;
+            }
+        }
+
+        /* CSS overscroll-behavior support */
+        @supports (overscroll-behavior: contain) {
+            .quality-badges {
+                overscroll-behavior: contain;
+            }
+
+            .header-center {
+                overscroll-behavior: none;
+            }
+        }
+
+        /* CSS accent-color support */
+        @supports (accent-color: #4caf50) {
+            .header-center {
+                accent-color: #2e7d32;
+            }
+
+            .badge {
+                accent-color: #4caf50;
+            }
+        }
+
+        /* CSS content-visibility support */
+        @supports (content-visibility: auto) {
+            .quality-badges {
+                content-visibility: auto;
+                contain-intrinsic-size: 0 30px;
+            }
+
+            .company-name {
+                content-visibility: auto;
+                contain-intrinsic-size: 0 50px;
+            }
+        }
+
+        /* CSS containment support */
+        @supports (contain: layout) {
+            .header-center {
+                contain: layout style;
+            }
+
+            .quality-badges {
+                contain: layout;
+            }
+
+            .company-name {
+                contain: style;
+            }
+        }
+
+        /* CSS shape-outside support */
+        @supports (shape-outside: circle()) {
+            .logo img {
+                shape-outside: circle(50%);
+                float: left;
+            }
+        }
+
+        /* CSS mask support */
+        @supports (mask: url()) {
+            .company-name::after {
+                mask: linear-gradient(90deg, transparent, black, transparent);
+            }
+        }
+
+        /* CSS filter support */
+        @supports (filter: blur(1px)) {
+            .badge:hover {
+                filter: brightness(1.1) contrast(1.1);
+            }
+
+            .company-name h1 {
+                filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+            }
+        }
+
+        /* CSS will-change support */
+        @supports (will-change: transform) {
+            .badge:hover {
+                will-change: transform, box-shadow;
+            }
+
+            .company-name:hover {
+                will-change: transform;
+            }
+        }
+
+        /* CSS scroll-margin support */
+        @supports (scroll-margin: 20px) {
+            .header-center {
+                scroll-margin-top: 100px;
+            }
+
+            .company-name {
+                scroll-margin-top: 80px;
+            }
+        }
+
+        /* CSS scroll-padding support */
+        @supports (scroll-padding: 20px) {
+            html {
+                scroll-padding-top: 100px;
+            }
+
+            .header-center {
+                scroll-padding: 20px;
+            }
+        }
+
+        /* CSS isolation support */
+        @supports (isolation: isolate) {
+            .header-center {
+                isolation: isolate;
+            }
+
+            .badge {
+                isolation: isolate;
+            }
+        }
+
+        /* CSS mix-blend-mode support */
+        @supports (mix-blend-mode: multiply) {
+            .company-name::after {
+                mix-blend-mode: multiply;
+            }
+
+            .badge:hover {
+                mix-blend-mode: normal;
+            }
+        }
+
+        /* CSS text-orientation support */
+        @supports (text-orientation: mixed) {
+            .company-name p {
+                text-orientation: mixed;
+                writing-mode: horizontal-tb;
+            }
+        }
+
+        /* CSS position: sticky support */
+        @supports (position: sticky) {
+            header {
+                position: sticky;
+                top: 0;
+            }
+        }
+
+        /* CSS object-fit support */
+        @supports (object-fit: cover) {
+            .logo img {
+                object-fit: contain;
+                object-position: center;
+            }
+        }
+
+        /* CSS resize support */
+        @supports (resize: both) {
+            .header-center {
+                resize: none;
+            }
+        }
+
+        /* CSS tab-size support */
+        @supports (tab-size: 4) {
+            .company-name h1 {
+                tab-size: 4;
+            }
+        }
+
+        /* CSS caret-color support */
+        @supports (caret-color: #2e7d32) {
+            .header-center {
+                caret-color: #2e7d32;
+            }
+        }
+
+        /* CSS hyphens support */
+        @supports (hyphens: auto) {
+            .company-name p {
+                hyphens: auto;
+            }
+        }
+
+        /* CSS image-rendering support */
+        @supports (image-rendering: pixelated) {
+            .logo img {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* CSS pointer-events support */
+        @supports (pointer-events: none) {
+            .company-name::after {
+                pointer-events: none;
+            }
+
+            .badge::before {
+                pointer-events: none;
+            }
+        }
+
+        /* CSS user-select support */
+        @supports (user-select: none) {
+            .badge {
+                user-select: none;
+            }
+
+            .company-name::after {
+                user-select: none;
+            }
+        }
+
+        /* CSS column-count support */
+        @supports (column-count: 2) {
+            .quality-badges {
+                column-count: auto;
+                column-width: 100px;
+            }
+        }
+
+        /* CSS text-emphasis support */
+        @supports (text-emphasis: dot) {
+            .company-name h1 {
+                text-emphasis: none;
+            }
+        }
+
+        /* CSS text-underline-position support */
+        @supports (text-underline-position: under) {
+            .company-name p {
+                text-underline-position: under;
+            }
+        }
+
+        /* CSS text-decoration-skip support */
+        @supports (text-decoration-skip: ink) {
+            .company-name p {
+                text-decoration-skip: ink;
+            }
+        }
+
+        /* CSS text-size-adjust support */
+        @supports (text-size-adjust: none) {
+            .company-name h1 {
+                text-size-adjust: none;
+            }
+
+            .badge {
+                text-size-adjust: none;
+            }
+        }
+
+        /* CSS writing-mode support */
+        @supports (writing-mode: vertical-lr) {
+            .company-name p {
+                writing-mode: horizontal-tb;
+            }
+        }
+
+        /* CSS text-combine-upright support */
+        @supports (text-combine-upright: all) {
+            .company-name p {
+                text-combine-upright: none;
+            }
+        }
+
+        /* CSS ruby-position support */
+        @supports (ruby-position: under) {
+            .company-name p {
+                ruby-position: over;
+            }
+        }
+
+        /* CSS direction support */
+        @supports (direction: rtl) {
+            .header-center {
+                direction: ltr;
+            }
+        }
+
+        /* CSS unicode-bidi support */
+        @supports (unicode-bidi: embed) {
+            .company-name p {
+                unicode-bidi: normal;
+            }
+        }
+
+        /* CSS word-break support */
+        @supports (word-break: break-word) {
+            .company-name p {
+                word-break: normal;
+            }
+        }
+
+        /* CSS line-break support */
+        @supports (line-break: strict) {
+            .company-name p {
+                line-break: auto;
+            }
+        }
+
+        /* CSS word-wrap support */
+        @supports (word-wrap: break-word) {
+            .company-name p {
+                word-wrap: normal;
+            }
+        }
+
+        /* CSS overflow-wrap support */
+        @supports (overflow-wrap: break-word) {
+            .company-name p {
+                overflow-wrap: normal;
+            }
+        }
+
+        /* CSS hanging-punctuation support */
+        @supports (hanging-punctuation: first) {
+            .company-name p {
+                hanging-punctuation: none;
+            }
+        }
+
+        /* CSS text-indent support */
+        @supports (text-indent: 2em) {
+            .company-name p {
+                text-indent: 0;
+            }
+        }
+
+        /* CSS text-align-last support */
+        @supports (text-align-last: center) {
+            .company-name p {
+                text-align-last: center;
+            }
+        }
+
+        /* CSS text-justify support */
+        @supports (text-justify: inter-word) {
+            .company-name p {
+                text-justify: auto;
+            }
+        }
+
+        /* CSS white-space-collapse support */
+        @supports (white-space-collapse: collapse) {
+            .company-name p {
+                white-space-collapse: collapse;
+            }
+        }
+
+        /* CSS text-wrap support */
+        @supports (text-wrap: balance) {
+            .company-name p {
+                text-wrap: balance;
+            }
+        }
+
+        /* CSS text-spacing-trim support */
+        @supports (text-spacing-trim: space-all) {
+            .company-name p {
+                text-spacing-trim: normal;
+            }
+        }
+
+        /* CSS text-autospace support */
+        @supports (text-autospace: ideograph-alpha) {
+            .company-name p {
+                text-autospace: normal;
+            }
+        }
+
+        /* CSS field-sizing support */
+        @supports (field-sizing: content) {
+            .company-name p {
+                field-sizing: fixed;
+            }
+        }
+
+        /* CSS interpolate-size support */
+        @supports (interpolate-size: allow-keywords) {
+            .badge {
+                interpolate-size: allow-keywords;
+            }
+        }
+
+        /* CSS starting-style support */
+        @supports (at-rule(@starting-style)) {
+            @starting-style {
+                .badge {
+                    opacity: 0;
+                }
+            }
+        }
+
+        /* CSS animation-timeline support */
+        @supports (animation-timeline: scroll()) {
+            .company-name h1 {
+                animation-timeline: scroll();
+            }
+        }
+
+        /* CSS anchor-name support */
+        @supports (anchor-name: --anchor) {
+            .company-name {
+                anchor-name: --company-name;
+            }
+        }
+
+        /* CSS position-anchor support */
+        @supports (position-anchor: --anchor) {
+            .quality-badges {
+                position-anchor: --company-name;
+            }
+        }
+
+        /* CSS view-transition-name support */
+        @supports (view-transition-name: none) {
+            .company-name {
+                view-transition-name: company-name;
+            }
+
+            .quality-badges {
+                view-transition-name: quality-badges;
+            }
+        }
+
+        /* CSS scroll-behavior support */
+        @supports (scroll-behavior: smooth) {
+            .header-center {
+                scroll-behavior: smooth;
+            }
+        }
+
+        /* CSS scroll-timeline support */
+        @supports (scroll-timeline: --scroll-timeline) {
+            .badge {
+                scroll-timeline: --badge-scroll;
+            }
+        }
+
+        /* CSS timeline-scope support */
+        @supports (timeline-scope: --timeline) {
+            .header-center {
+                timeline-scope: --header-timeline;
+            }
+        }
+
+        /* CSS animation-range support */
+        @supports (animation-range: 0% 100%) {
+            .badge {
+                animation-range: entry 0% exit 100%;
+            }
+        }
+
+        /* CSS animation-delay support */
+        @supports (animation-delay: 0s) {
+            .badge:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+
+            .badge:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .badge:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+        }
+
+        /* CSS animation-composition support */
+        @supports (animation-composition: add) {
+            .badge {
+                animation-composition: add;
+            }
+        }
+
+        /* CSS forced-color-adjust support */
+        @supports (forced-color-adjust: none) {
+            .badge {
+                forced-color-adjust: none;
+            }
+
+            .company-name h1 {
+                forced-color-adjust: none;
+            }
+        }
+
+        /* CSS page-break-inside support */
+        @supports (page-break-inside: avoid) {
+            .header-center {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* CSS break-inside support */
+        @supports (break-inside: avoid) {
+            .header-center {
+                break-inside: avoid;
+            }
+        }
+
+        /* CSS orphans support */
+        @supports (orphans: 2) {
+            .company-name p {
+                orphans: 2;
+            }
+        }
+
+        /* CSS widows support */
+        @supports (widows: 2) {
+            .company-name p {
+                widows: 2;
+            }
+        }
+
+        /* CSS @page support */
+        @supports (at-rule(@page)) {
+            @page {
+                margin: 1in;
+            }
+        }
+
+        /* CSS @counter-style support */
+        @supports (at-rule(@counter-style)) {
+            @counter-style badge-counter {
+                system: cyclic;
+                symbols: "🥛" "🌿" "⭐";
+            }
+        }
+
+        /* CSS @property support */
+        @supports (at-rule(@property)) {
+            @property --badge-color {
+                syntax: "<color>";
+                inherits: false;
+                initial-value: #2e7d32;
+            }
+        }
+
+        /* CSS @scope support */
+        @supports (at-rule(@scope)) {
+            @scope (.header-center) {
+                .badge {
+                    color: white;
+                }
+            }
+        }
+
+        /* CSS @nest support */
+        @supports (at-rule(@nest)) {
+            .header-center {
+                @nest & .badge {
+                    display: inline-block;
+                }
+            }
+        }
+
+        /* CSS @media prefers-color-scheme support */
+        @supports (prefers-color-scheme: dark) {
+            @media (prefers-color-scheme: dark) {
+                .badge {
+                    filter: brightness(1.2);
+                }
+            }
+        }
+
+        /* CSS @media prefers-reduced-motion support */
+        @supports (prefers-reduced-motion: reduce) {
+            @media (prefers-reduced-motion: reduce) {
+                .badge {
+                    animation: none !important;
+                }
+            }
+        }
+
+        /* CSS @media prefers-contrast support */
+        @supports (prefers-contrast: high) {
+            @media (prefers-contrast: high) {
+                .badge {
+                    border: 2px solid #000;
+                }
+            }
+        }
+
+        /* CSS @media prefers-reduced-transparency support */
+        @supports (prefers-reduced-transparency: reduce) {
+            @media (prefers-reduced-transparency: reduce) {
+                .badge {
+                    opacity: 1;
+                }
+            }
+        }
+
+        /* CSS @media prefers-reduced-data support */
+        @supports (prefers-reduced-data: reduce) {
+            @media (prefers-reduced-data: reduce) {
+                .badge {
+                    animation: none !important;
+                    transition: none !important;
+                }
+            }
+        }
+
+        /* CSS @media hover support */
+        @supports (hover: hover) {
+            @media (hover: hover) {
+                .badge:hover {
+                    filter: brightness(1.1);
+                }
+            }
+        }
+
+        /* CSS @media pointer support */
+        @supports (pointer: fine) {
+            @media (pointer: fine) {
+                .badge {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        /* CSS @media any-hover support */
+        @supports (any-hover: hover) {
+            @media (any-hover: hover) {
+                .badge:hover {
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
+
+        /* CSS @media any-pointer support */
+        @supports (any-pointer: fine) {
+            @media (any-pointer: fine) {
+                .badge {
+                    user-select: none;
+                }
+            }
+        }
+
+        /* CSS @media update support */
+        @supports (update: fast) {
+            @media (update: fast) {
+                .badge {
+                    animation: fadeInUp 0.8s ease-out;
+                }
+            }
+        }
+
+        /* CSS @media overflow-block support */
+        @supports (overflow-block: scroll) {
+            @media (overflow-block: scroll) {
+                .quality-badges {
+                    overflow-y: auto;
+                }
+            }
+        }
+
+        /* CSS @media overflow-inline support */
+        @supports (overflow-inline: scroll) {
+            @media (overflow-inline: scroll) {
+                .quality-badges {
+                    overflow-x: auto;
+                }
+            }
+        }
+
+        /* CSS @media inverted-colors support */
+        @supports (inverted-colors: inverted) {
+            @media (inverted-colors: inverted) {
+                .badge {
+                    filter: invert(1);
+                }
+            }
+        }
+
+        /* CSS @media scripting support */
+        @supports (scripting: enabled) {
+            @media (scripting: enabled) {
+                .badge {
+                    animation: fadeInUp 0.8s ease-out;
+                }
+            }
+        }
+
+        /* CSS @media dynamic-range support */
+        @supports (dynamic-range: high) {
+            @media (dynamic-range: high) {
+                .badge {
+                    color: color(display-p3 1 1 1);
+                }
+            }
+        }
+
+        /* CSS @media video-dynamic-range support */
+        @supports (video-dynamic-range: high) {
+            @media (video-dynamic-range: high) {
+                .badge {
+                    filter: brightness(1.1);
+                }
+            }
+        }
+
+        /* CSS @media color-gamut support */
+        @supports (color-gamut: p3) {
+            @media (color-gamut: p3) {
+                .badge {
+                    background: color(display-p3 0.176 0.49 0.196);
+                }
+            }
+        }
+
+        /* CSS @media environment-blending support */
+        @supports (environment-blending: additive) {
+            @media (environment-blending: additive) {
+                .badge {
+                    mix-blend-mode: screen;
+                }
+            }
+        }
+
+        /* CSS @media nav-controls support */
+        @supports (nav-controls: back) {
+            @media (nav-controls: back) {
+                .badge {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        /* CSS @media video-color-gamut support */
+        @supports (video-color-gamut: p3) {
+            @media (video-color-gamut: p3) {
+                .badge {
+                    filter: saturate(1.1);
+                }
+            }
+        }
+
+        /* CSS @media horizontal-viewport-segments support */
+        @supports (horizontal-viewport-segments: 2) {
+            @media (horizontal-viewport-segments: 2) {
+                .header-center {
+                    padding: 0 env(viewport-segment-left 0 0);
+                }
+            }
+        }
+
+        /* CSS @media vertical-viewport-segments support */
+        @supports (vertical-viewport-segments: 2) {
+            @media (vertical-viewport-segments: 2) {
+                .header-center {
+                    padding-top: env(viewport-segment-top 0 0);
+                }
+            }
+        }
+
+        /* CSS @media device-posture support */
+        @supports (device-posture: folded) {
+            @media (device-posture: folded) {
+                .header-center {
+                    width: 50%;
+                }
+            }
+        }
+
+        /* CSS @media spanning support */
+        @supports (spanning: single-fold-vertical) {
+            @media (spanning: single-fold-vertical) {
+                .header-center {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: env(fold-width);
+                }
+            }
+        }
+
+        /* CSS @media forced-colors support */
+        @supports (forced-colors: active) {
+            @media (forced-colors: active) {
+                .badge {
+                    background: ButtonText;
+                    color: ButtonFace;
+                    border: 1px solid ButtonBorder;
+                }
+            }
+        }
+
+        /* CSS @media prefers-reduced-data support */
+        @supports (prefers-reduced-data: reduce) {
+            @media (prefers-reduced-data: reduce) {
+                .badge::before {
+                    display: none;
+                }
+            }
+        }
+
+                 /* CSS @media prefers-reduced-transparency support */
+         @supports (prefers-reduced-transparency: reduce) {
+             @media (prefers-reduced-transparency: reduce) {
+                 header {
+                     background: #ffffff !important;
+                     backdrop-filter: none !important;
+                 }
+
+                 .badge {
+                     opacity: 1;
+                     backdrop-filter: none;
+                 }
+             }
+         }
+
+        /* CSS @media light-level support */
+        @supports (light-level: dim) {
+            @media (light-level: dim) {
+                .badge {
+                    filter: brightness(1.2);
+                }
+            }
+        }
+
+        /* CSS @media resolution support */
+        @supports (resolution: 2dppx) {
+            @media (resolution: 2dppx) {
+                .badge {
+                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                }
             }
         }
 
@@ -493,7 +2477,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: transparent;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
@@ -505,21 +2489,50 @@
             visibility: visible;
         }
 
-        /* Prevent content overlap when mobile menu is open */
-        body.mobile-menu-open {
-            overflow: hidden;
+        /* Prevent content overlap when mobile menu is open - только для ПК */
+        @media (min-width: 769px) {
+            body.mobile-menu-open {
+                overflow: hidden;
+                height: 100vh;
+            }
+        }
+
+        /* Tablet styles */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .company-name h1 {
+                font-size: 26px;
+            }
+
+            .company-name p {
+                font-size: 12px;
+            }
+
+            .badge {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: inline-block;
+            }
+
+            .header-center {
+                margin: 0 20px;
+            }
+
+            .company-name::after {
+                width: 50px;
+                height: 2px;
+            }
+
+            nav {
+                min-height: 55px;
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            /* Navigation */
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-            }
+            /* Navigation - гамбургер-меню уже показано на всех устройствах */
 
             /* Hero Section */
             .hero {
@@ -604,6 +2617,8 @@
                 display: none;
             }
 
+
+
             /* Footer */
             footer {
                 padding: 40px 15px;
@@ -619,6 +2634,14 @@
                 height: 50px;
             }
 
+            .logo {
+                align-self: center;
+            }
+
+            .mobile-menu-toggle {
+                align-self: center;
+            }
+
             /* Header */
             header {
                 padding: 12px 0;
@@ -626,10 +2649,55 @@
 
             nav {
                 padding: 0 15px;
+                min-height: 50px;
+            }
+
+            .header-center {
+                margin: 0 10px;
+            }
+
+            .company-name h1 {
+                font-size: 20px;
+            }
+
+            .company-name p {
+                font-size: 9px;
+            }
+
+            .quality-badges {
+                gap: 4px;
+            }
+
+            .badge {
+                font-size: 8px;
+                padding: 2px 6px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none;
+            }
+
+            .company-name::after {
+                width: 30px;
+                height: 1px;
+            }
+
+            nav {
+                min-height: 48px;
             }
 
             .mobile-menu {
-                top: 65px;
+                top: 55px;
+                height: calc(100vh - 55px);
+            }
+
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header {
+                display: none;
+            }
+
+            .menu-close-btn {
+                display: none;
             }
         }
 
@@ -679,14 +2747,62 @@
                 height: 40px;
             }
 
+            .logo {
+                align-self: center;
+            }
+
+            .mobile-menu-toggle {
+                align-self: center;
+            }
+
             .mobile-menu {
-                top: 60px;
+                top: 50px;
+                height: calc(100vh - 50px);
                 padding: 12px;
             }
 
+            nav {
+                min-height: 45px;
+            }
+
             .mobile-menu a {
-                padding: 12px 0;
+                padding: 10px 0;
+                font-size: 14px;
+                margin-bottom: 2px;
+            }
+
+            .header-center {
+                margin: 0 8px;
+            }
+
+            .company-name h1 {
                 font-size: 16px;
+            }
+
+            .company-name p {
+                font-size: 8px;
+            }
+
+            .quality-badges {
+                gap: 3px;
+            }
+
+            .badge {
+                font-size: 7px;
+                padding: 1px 4px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none;
+            }
+
+            .company-name::after {
+                width: 25px;
+                height: 1px;
+            }
+
+            nav {
+                min-height: 42px;
             }
 
             .about p {
@@ -707,6 +2823,8 @@
                 padding: 50px 10px;
             }
 
+
+
             footer {
                 padding: 30px 8px;
             }
@@ -715,6 +2833,15 @@
                 max-width: 320px;
                 gap: 30px;
                 padding: 0 12px;
+            }
+
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header {
+                display: none;
+            }
+
+            .menu-close-btn {
+                display: none;
             }
         }
 
@@ -759,8 +2886,81 @@
             .logo img {
                 height: 35px;
             }
+
+            .logo {
+                align-self: center;
+            }
+
+            .mobile-menu-toggle {
+                align-self: center;
+            }
+
+            nav {
+                min-height: 40px;
+            }
+
+            .header-center {
+                margin: 0 6px;
+            }
+
+            .company-name h1 {
+                font-size: 14px;
+            }
+
+            .company-name p {
+                font-size: 7px;
+            }
+
+            .quality-badges {
+                gap: 2px;
+            }
+
+            .badge {
+                font-size: 6px;
+                padding: 1px 3px;
+            }
+
+            .badge:nth-child(n+3) {
+                display: none;
+            }
+
+            .company-name::after {
+                width: 20px;
+                height: 1px;
+            }
+
+            /* Скрываем заголовок меню и кнопку закрытия на мобильных устройствах */
+            .menu-header {
+                display: none;
+            }
+
+            .menu-close-btn {
+                display: none;
+            }
         }
-    </style>
+    
+        /* Slogan wrap override */
+        .company-name p {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            overflow-wrap: anywhere;
+        }
+    
+        /* Slogan style unify */
+        .company-name p {
+            color: #2e7d32 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            margin: 2px 0 0 0 !important;
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+            max-width: 100% !important;
+        }
+</style>
 </head>
 <body>
     <!-- Header -->
@@ -768,14 +2968,22 @@
         <nav>
             <div class="logo">
                 <a href="https://allgameg87.github.io/Molzavod/">
-                    <img src="images/logo.png" alt="Чистые Луга" loading="lazy">
+                    <img src="images/logo.png" alt="Красногвардеец" loading="lazy">
                 </a>
+            </div>
+            <div class="header-center">
+                <div class="company-name">
+                    <h1>Красногвардеец</h1>
+                    <p>Натуральные молочные продукты с 1995 года</p>
+                </div>
+                
             </div>
             <div class="nav-links">
                 <a href="#home">Главная</a>
                 <a href="#products">Продукты</a>
+                <a href="Pelageia/katalog.html">Каталог</a>
                 <a href="#about">О нас</a>
-                <a href="#contact">Контакты</a>
+                <a href="#contacts">Контакты</a>
             </div>
             <div class="mobile-menu-toggle">
                 <span></span>
@@ -785,10 +2993,18 @@
         </nav>
         <div class="mobile-menu-overlay"></div>
         <div class="mobile-menu">
+            <div class="menu-close-btn">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-header">
+                <h3>Навигация</h3>
+            </div>
             <a href="#home">Главная</a>
             <a href="#products">Продукты</a>
+            <a href="Pelageia/katalog.html">Каталог</a>
             <a href="#about">О нас</a>
-            <a href="#contact">Контакты</a>
+            <a href="#contacts">Контакты</a>
         </div>
     </header>
 
@@ -837,12 +3053,14 @@
     <section class="about" id="about">
         <img class="about-image" src="images/farm-bg.jpg" alt="Ферма" loading="lazy">
         <h2>О нас</h2>
-        <p>Молочный завод "Чистые Луга" – это семейное предприятие, основанное в 1995 году. Мы производим натуральные молочные продукты, заботясь о каждом этапе: от экологически чистых пастбищ до современной упаковки. Наша миссия – дарить здоровье и радость через вкусные и полезные продукты.</p>
+        <p>Молочный завод "Красногвардеец" – это семейное предприятие, основанное в 1995 году. Мы производим натуральные молочные продукты, заботясь о каждом этапе: от экологически чистых пастбищ до современной упаковки. Наша миссия – дарить здоровье и радость через вкусные и полезные продукты.</p>
     </section>
 
+
+
     <!-- Footer -->
-    <footer id="contact">
-        <p>© 2025 Молочный завод "Чистые Луга". Все права защищены.</p>
+    <footer id="contacts">
+        <p>© 2025 Молочный завод "Красногвардеец". Все права защищены.</p>
         <p>Контакты: <a href="mailto:info@chistyeluga.ru">info@chistyeluga.ru</a> | <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
     </footer>
 
@@ -893,48 +3111,62 @@
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const mobileMenu = document.querySelector('.mobile-menu');
         const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const menuCloseBtn = document.querySelector('.menu-close-btn');
+
+        function openMenu() {
+            mobileMenuToggle.classList.add('active');
+            mobileMenu.classList.add('active');
+            
+            // Блокируем прокрутку только на ПК (769px и больше)
+            if (window.innerWidth >= 769) {
+                document.body.classList.add('mobile-menu-open');
+            }
+        }
+
+        function closeMenu() {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            
+            // Разблокируем прокрутку только на ПК
+            if (window.innerWidth >= 769) {
+                document.body.classList.remove('mobile-menu-open');
+            }
+        }
 
         mobileMenuToggle.addEventListener('click', () => {
-            mobileMenuToggle.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            mobileMenuOverlay.classList.toggle('active');
-            document.body.classList.toggle('mobile-menu-open');
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
+
+        // Close menu when clicking close button
+        menuCloseBtn.addEventListener('click', closeMenu);
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                document.body.classList.remove('mobile-menu-open');
-            });
+            link.addEventListener('click', closeMenu);
         });
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-                mobileMenuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                document.body.classList.remove('mobile-menu-open');
+                closeMenu();
             }
         });
 
         // Close mobile menu when clicking on overlay
-        mobileMenuOverlay.addEventListener('click', () => {
-            mobileMenuToggle.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-            document.body.classList.remove('mobile-menu-open');
-        });
+        // mobileMenuOverlay.addEventListener('click', closeMenu); // Убираем overlay
 
         // Close mobile menu on window resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
-                mobileMenuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
+                closeMenu();
+            }
+            
+            // Убираем блокировку прокрутки при переходе на мобильную версию
+            if (window.innerWidth < 769) {
                 document.body.classList.remove('mobile-menu-open');
             }
         });
@@ -950,17 +3182,7 @@
             });
         }
 
-        // Smooth Scroll for desktop navigation
-        document.querySelectorAll('.nav-links a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    smoothScrollTo(targetElement);
-                }
-            });
-        });
+        // Smooth Scroll for desktop navigation - удалено, так как теперь используется только мобильное меню
 
         // Smooth Scroll for mobile navigation
         document.querySelectorAll('.mobile-menu a').forEach(anchor => {
@@ -1078,3 +3300,8 @@
     </script>
 </body>
 </html>
+
+
+
+
+
