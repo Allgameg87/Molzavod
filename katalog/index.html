@@ -3285,6 +3285,20 @@
             text-overflow: clip;
             overflow-wrap: anywhere;
         }
+    
+        /* Slogan style unify */
+        .company-name p {
+            color: #2e7d32 !important;
+            font-weight: 500 !important;
+            font-style: italic !important;
+            margin: 2px 0 0 0 !important;
+            white-space: normal !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+            max-width: 100% !important;
+        }
     </style>
 </head>
 <body>
@@ -3325,7 +3339,7 @@
                 <h3>Навигация</h3>
             </div>
             <a href="https://allgameg87.github.io/Molzavod">Главная</a>
-            <a href="https://allgameg87.github.io/Molzavod">Продукты</a>
+            <a href="https://allgameg87.github.io/Molzavod/katalog">Продукты</a>
             <a href="https://allgameg87.github.io/Molzavod/katalog">Каталог</a>
             <a href="https://allgameg87.github.io/Molzavod/onas">О нас</a>
             <a href="https://allgameg87.github.io/Molzavod/kontakt">Контакты</a>
@@ -3683,12 +3697,17 @@
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', closeMenu);
+            link.addEventListener('click', function(e) {
+                // Небольшая задержка перед закрытием меню, чтобы дать время для перехода
+                setTimeout(closeMenu, 100);
+            });
         });
 
-        // Close mobile menu when clicking outside
+        // Close mobile menu when clicking outside (но не на ссылки)
         document.addEventListener('click', (e) => {
-            if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+            if (!mobileMenuToggle.contains(e.target) && 
+                !mobileMenu.contains(e.target) && 
+                !e.target.closest('.mobile-menu a')) {
                 closeMenu();
             }
         });
@@ -3721,8 +3740,8 @@
 
         // Smooth Scroll for desktop navigation - удалено, так как теперь используется только мобильное меню
 
-        // Smooth Scroll for mobile navigation
-        document.querySelectorAll('.mobile-menu a').forEach(anchor => {
+        // Smooth Scroll for mobile navigation (только для внутренних якорных ссылок)
+        document.querySelectorAll('.mobile-menu a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
